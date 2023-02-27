@@ -1,11 +1,12 @@
 // players inital values
 function init_player()
-    p={}         -- player's table
-    p.x=10       -- player's X
-    p.y=10       -- player's y
-    p.state=1    -- player's animation state
-    p.dirt=0     -- player's direction 
-    p.defstate=1 -- player's default state
+    p={}          -- player's table
+    p.x=10        -- player's X
+    p.y=10        -- player's y
+    p.state=1     -- player's animation state
+    p.dirt=0      -- player's direction 
+    p.defstate=1  -- player's default state
+    p.anim_time=0 -- player's animation time
 end
 
 // updates the player
@@ -17,8 +18,8 @@ function player_update()
     -- Left Arrow
     if btn(0) then 
         p.x-=1
-        move = 0 
-        p.defstate=1
+        move = 15 
+        p.defstate=16
     end 
 
     -- Right Arrow
@@ -31,32 +32,35 @@ function player_update()
     -- Up Arrow
  	if btn(2) then 
         p.y-=1 
-        move = 15 
-        p.defstate=16
+        move = 47 
+        p.defstate=48
     end
     
     -- Down Arrow
  	if btn(3) then 
         p.y+=1 
-        move = 15
-        p.defstate=16
+        move = 31
+        p.defstate=32
     end 
 
     -- return if no input detected
     if move == -1 then return end
 
+    -- Check if appropriate time to update animation
+    if time() - p.anim_time <= 0.1 then return end
     -- update the direction the player
     -- is facing
     if p.dirt != move then
         p.dirt = move
         p.state = move
     end
-
     -- update the state
     p.state +=1
 
+    p.anim_time = time()
+
     -- check if its the last state
-    if p.state > 2 + p.defstate then
+    if p.state > 3 + p.defstate then
         p.state = p.defstate
     end
 end
