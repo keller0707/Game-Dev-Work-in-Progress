@@ -7,7 +7,7 @@ end
 
 // calls every frame
 function _update()
-	playerkeypress()
+	player_update()
 end
 
 // class every frame
