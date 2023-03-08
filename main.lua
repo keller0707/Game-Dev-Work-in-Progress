@@ -8,17 +8,19 @@ end
 
 // calls every frame
 function _update()
-	playerkeypress()
+    -- update player 
+	player_update()
 end
 
 // class every frame
 // draw out object
 function _draw()
+    -- clear canvas
 	cls(1)
 
-	-- updates map
+	-- draw map
 	map(0,0,0,0,16,16)
 
-	-- updates sprite
+	-- draw sprite
 	player_draw()
 end
