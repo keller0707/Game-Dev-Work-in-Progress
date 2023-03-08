@@ -1,71 +1,76 @@
 // players inital values
 function init_player()
-    p={}          -- player's table
-    p.x=10        -- player's X
-    p.y=10        -- player's y
-    p.state=1     -- player's animation state
-    p.dirt=0      -- player's direction 
-    p.defstate=1  -- player's default state
-    p.anim_time=0 -- player's animation time
+    player={}                 -- player's table
+    player.x=10               -- player's X
+    player.y=10               -- player's y
+    player.anim_time=0        -- player's animation time
+    player.speed=1            -- player's speed
+    player.runstate ={08,14}  -- player run state
+    player.upstate   ={32,42} -- player up walk state
+    player.downstate ={67,77} -- player down walk state
+    player.idlestate ={00,06} -- player idle state
+    player.flipsprite=false   -- player flip sprite animiation
+    player.currentstate={}    -- player's animation state
+    player.state=0
 end
 
 // updates the player
 function player_update()
-    -- intit value
-	move = -1
-
+    newstate = nil
     -- Check for button inputs
     -- Left Arrow
     if btn(0) then 
-        p.x-=1
-        move = 15 
-        p.defstate=16
+        player.x-=player.speed
+        newstate=player.runstate
+        player.flipsprite=true
     end 
 
     -- Right Arrow
  	if btn(1) then 
-        p.x+=1 
-        move = 0 
-        p.defstate=1
+        player.x+=player.speed
+        newstate=player.runstate
+        player.flipsprite=false
     end 
 
     -- Up Arrow
  	if btn(2) then 
-        p.y-=1 
-        move = 47 
-        p.defstate=48
+        player.y-=player.speed
+        newstate=player.downstate
     end
     
     -- Down Arrow
  	if btn(3) then 
-        p.y+=1 
-        move = 31
-        p.defstate=32
+        player.y+=player.speed
+        newstate=player.upstate
     end 
 
     -- return if no input detected
-    if move == -1 then return end
+    if newstate == nil then 
+        newstate=player.idlestate
+    end
 
     -- Check if appropriate time to update animation
-    if time() - p.anim_time <= 0.1 then return end
+    if time() - player.anim_time <= 0.1 then return end
     -- update the direction the player
     -- is facing
-    if p.dirt != move then
-        p.dirt = move
-        p.state = move
+    if newstate[1] != player.currentstate[1] then
+        player.currentstate = newstate
+        player.state = newstate[1]
+        return
     end
     -- update the state
-    p.state +=1
+    player.state +=2
 
-    p.anim_time = time()
+    -- update animation timer
+    player.anim_time = time()
 
     -- check if its the last state
-    if p.state > 3 + p.defstate then
-        p.state = p.defstate
+    if player.state > player.currentstate[2] then
+        player.state = player.currentstate[1]
     end
 end
 
 function player_draw()
     -- draw sprite
-    spr(p.state, p.x, p.y)
+    spr(player.state, player.x, player.y, 2,2, player.flipsprite)
 end
