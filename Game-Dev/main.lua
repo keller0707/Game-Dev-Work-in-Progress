@@ -2,15 +2,16 @@
 // init var, data, ect.
 function _init()
     -- initialize player
-	init_player()
+	init_player() 
+	init_player_bedroom()
 
 	-- movement variables for player
 	gravity=0.3
     friction=0.85
   
 	--map limits
-	map_start= 136
-	map_end= 392
+	map_start = 0
+	map_end = 0
 
 	-- what scene we are in
 	scene = 0
@@ -22,7 +23,8 @@ function _update()
 
 	-- bed room
 	if (scene == 0) then
-		playerkeypress()
+		player_update_bedroom()
+		camera(0,0)
 	end
 
 	-- playtest
@@ -61,7 +63,7 @@ function _draw()
 	-- bed room
 	if (scene == 0) then
 		-- updates sprite
-		player_draw()
+		player_draw_bedroom()
 	end
 
 	-- playtest

@@ -52,16 +52,18 @@ function playerkeypress()
         -- Boundary Checking
         if (p.x <= 0) then p.x=0 end
         if (p.x >= 120) then p.x=120 end
-        if (p.y <= 8) then p.y=8 end
+        if (p.y <= 16) then p.y=16 end
         if (p.y >= 112) then p.y=112 end
 
-        -- teleport to playtest
+        -- teleport to bug playtest
         if (p.y >= 20 and p.y <= 44 and p.x >= 116) then 
-            p.y = 112
-            p.x = 4
-            mapx = 17
-            mapy = 0
-            scene = 1
+          teleport(1)
+        end
+
+        -- THIS HAS THE WRONG HIT BOX
+        -- teleport to clean playtest
+        if (p.x <= 112 and p.x >= 88 and p.y >= 16 and p.y <= 24) then 
+          teleport(2)
         end
 
 end
@@ -166,6 +168,21 @@ function player_playtest()
   if p.x > map_end - p.w then
       p.x = map_end - p.w
   end
+
+  -- teleport back to bedroom
+  if (p.x >= 456 and p.x <= 512 ) then
+    teleport(0)
+  elseif (p.x >= 840) then
+    teleport(0)
+  end
+
+  -- player falls out of the world
+  if (p.y >= 128 and p.x <= 520) then
+    teleport(1)
+  elseif (p.y >= 136 and p.x >= 520) then
+    teleport (2)
+  end
+
 
 
 end
