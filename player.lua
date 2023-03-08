@@ -36,6 +36,7 @@ function player_update()
  	if btn(2) then 
         player.y-=player.speed
         newstate=player.downstate
+        sfx(5, -1, 0, 31)
     end
     
     -- Down Arrow
@@ -68,6 +69,7 @@ function player_update()
     if player.state > player.currentstate[2] then
         player.state = player.currentstate[1]
     end
+
 end
 
 function player_draw()

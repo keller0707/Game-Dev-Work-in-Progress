@@ -3,6 +3,7 @@
 function _init()
     -- initialize player
 	init_player()
+	music(0, 1000, 0)
 end
 
 // calls every frame
