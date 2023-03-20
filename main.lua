@@ -2,6 +2,7 @@
 // init var, data, ect.
 function _init()
     -- initialize player
+
 	init_player() 
 	init_player_bedroom()
 

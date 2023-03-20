@@ -1,5 +1,6 @@
 
 function init_player()
+
     -- player info
     p = {
       -- sprite number
