@@ -141,17 +141,15 @@ function player_playtest()
       p.x = map_end - p.w
   end
 
-  -- teleport back to bedroom
+  -- teleport back to next stage and back to bedroom
   if (p.x >= 456 and p.x <= 512 ) then
     teleport(0)
   elseif (p.x >= 840) then
-    teleport(0)
+    teleport(1)
   end
 
   -- player falls out of the world
-  if (p.y >= 128 and p.x <= 520) then
-    teleport(1)
-  elseif (p.y >= 136 and p.x >= 520) then
+  if (p.y >= 136 and p.x >= 520) then
     teleport (2)
   end
 

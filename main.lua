@@ -5,6 +5,8 @@ function _init()
 	init_player() 
 	init_player_bedroom()
 
+	music(0, 1000, 0)
+
 	-- movement variables for player
 	gravity=0.3
     friction=0.85
@@ -67,12 +69,8 @@ function _update()
 		-- interaction with objects
 		if (btnp(5)) then
 			if (collide_map(player,"up",2)) then
-				teleport(1)
-				player.y += 8
-			end
-			if (collide_map(player,"right",3)) then
 				teleport(2)
-				player.x -= 8
+				player.y += 8
 			end
 		end
 

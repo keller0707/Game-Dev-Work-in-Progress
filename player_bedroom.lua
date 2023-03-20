@@ -41,6 +41,7 @@ function player_update_bedroom()
  	if btn(2) then 
         player.y-=player.speed
         newstate=player.downstate
+        sfx(5, -1, 0, 31)
     end
     
     -- Down Arrow
