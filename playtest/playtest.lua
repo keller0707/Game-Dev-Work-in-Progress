@@ -1,6 +1,13 @@
 function _init() 
 
+	sheep_list = {}
+
     init_player()
+	init_sheep(678,112)
+	init_sheep(824,112)
+
+	init_sheep(302,112)
+	init_sheep(443,112)
 
     -- movement variables for player
 	gravity=0.3
@@ -31,6 +38,24 @@ function _update()
 	end
 	
 	camera(camera_x,0)
+
+	if p.x > 510 then
+		-- check on buggy sheep
+		for i = 1, #sheep_list/2 do
+			move_buggy(i)
+			if collide(p,sheep_list[i]) then
+				teleport(2)
+			end
+		end
+	else
+		-- check on clean sheep
+		for i = #sheep_list/2 + 1, #sheep_list do
+			move_clean(i)
+			if collide(p,sheep_list[i]) then
+				teleport(1)
+			end
+		end
+	end
 	
 end
 
@@ -43,5 +68,8 @@ function _draw()
 	map(0,0)
 
 	spr(p.sp,p.x,p.y, 1, 1, p.flipx)
+	--rect(p.x+4,p.y+4,p.x+4,p.y+4,11)
+
+	draw_sheep()
 	
 end
