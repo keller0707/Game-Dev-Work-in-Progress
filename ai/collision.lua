@@ -59,3 +59,26 @@ function collide_map(obj,aim,flag)
     end
    
 end
+
+-- given two objects, check if obj1 is in range of obj2
+function in_range(obj1,obj2,range)
+
+  local x1 = obj1.x + 4
+  local y1 = obj1.y + 4
+
+  local x2 = obj2.x + 4
+  local y2 = obj2.y + 4
+
+  --xr1 = x2 - range
+  --yr1 = x2 + range
+  --xr2 = y2 - range
+  --yr2 = y2 + range
+
+  if (x1 >= x2 - range) and (x1 <= x2 + range)
+  and (y1 >= y2 - range) and (y1 <= y2 + range) then
+      return true
+  else
+     return false
+  end
+
+end

@@ -35,8 +35,6 @@ function _init()
     score_screen = false
     recorded_time = 0
 
-    --gayme_end = false
-
 end
 
 function _update()
@@ -77,6 +75,7 @@ function _update()
             sheep_list[i].moving = true
         end
 
+        -- sheep enter safe zone
        if sheep_list[i].x >= 96 and sheep_list[i].x <= 144 and
         sheep_list[i].y >= 96 and sheep_list[i].y <= 144 and not
         sheep_list[i].safe then
@@ -113,6 +112,7 @@ function _update()
 
         end
 
+        -- game end, all sheep are safe and/or dead
         if #objective >= #sheep_list then
 
             -- jump player to score screen
@@ -122,17 +122,9 @@ function _update()
                 score_screen = true
                 recorded_time = time()
 
-                -- teleport sheep to end score screen
-                --sheep_list[i].x = 264 + rnd(102)
-                --sheep_list[i].y = 10 + rnd(102)
-
             end
 
-        end
-
-        -- game is over
-        if #objective >= #sheep_list then
-
+            -- variable to count number of living sheep
             local count = 0
 
             -- count number of living sheep
@@ -142,8 +134,7 @@ function _update()
                 end
             end
 
-            --gayme_end = true
-
+            -- end game, enter score screen
             game_end(time(),count)
 
         end
@@ -182,12 +173,30 @@ function _draw()
 
     map(0,0)
 
-    --print("time: "..flr(time()),p.x-56,0)
-    --if not (p.x - 60 < 0) then
-      --  print("time: "..flr(time()),p.x - 56, p.y - 56)
-    --else
-      --  print("time: "..flr(time()),0,p.y-56)
-    --end
+    -- game is live
+    if not score_screen then
+
+        local print_x = p.x - 60
+        local print_y = p.y - 60
+
+        -- keep timer in appropriate x range
+        if (print_x < 0) then
+            print_x = 2
+        elseif (print_x > 189) then 
+            print_x = 126
+        end
+
+        -- keep timer in appropraite y range
+        if (p.y - 56 < 0) then
+            print_y = 2
+        elseif (p.y + 56 > 250) then 
+            print_y = 126
+        end
+        
+        -- display timer top left
+        print("time: "..flr(time()),print_x,print_y)
+
+    end
 
     draw_player()
     
@@ -195,6 +204,7 @@ function _draw()
 
     draw_wolves()
 
+    -- display info for score screen
     print("condragulations!",287,30,8)
     print("you saved:",299,40,9)
     print(#sheep_list - dead_count .. "/" .. #sheep_list .. " sheep!",300,50,10)
@@ -202,6 +212,7 @@ function _draw()
     print("in: ".. recorded_time .. " seconds!",281,60,11)
     print("exit",349,97,7)
 
+    -- THIS IS ALL HITBOX DRAWING FOR DEBUG STUFF
     -- player circle
     --circ(p.x+4,p.y+4,64,8)
 

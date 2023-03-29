@@ -5,8 +5,6 @@ __lua__
 
 #include collision.lua
 
-#include ghost.lua
-
 #include player.lua
 
 #include sheep.lua
