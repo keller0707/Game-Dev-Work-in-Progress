@@ -1,9 +1,9 @@
 function _init()
     cursor = {
-        x = 8,
+        x = 80,
         y = 8,
         speed = 3,
-        w = 16,
+        w = 12,
         h = 16
     }
 end
@@ -39,12 +39,24 @@ function _draw()
     print('level', 16, 102 , 1)
     print('powerups', 49, 102 , 1)
     print('sound', 93, 102 , 1)
+    print('X:', 25,25,1)
+    print(cursor.x, 30,25,1) -- 8-17
+    print('Y:', 25, 30,1)
+    print(cursor.y, 30,30,1) -- 11-19
     spr(4, cursor.x, cursor.y, 2,2)
 end
 
 function checkhover()
-    if fget(4 , 1) then
-        --print('W ord', 25, 25, 1)
-        printh('Hello World')
+    -- Exit button Range: x:8-16 y:11-18
+    if(9 <= cursor.x and cursor.x <= 16 and 
+      12 <= cursor.y and cursor.y <= 17) then
+        load("game-dev.p8")
     end
+    if(9 <= cursor.x and cursor.x <= 36 and 
+      41 <= cursor.y and cursor.y <= 52) then
+        load("ai.p8")
+    end
+    --if(cursor.x < 8 or cursor.x > 16) return
+    --if(cursor.y < 11 or cursor.y > 18) return
+    --load("game-dev.p8")
 end

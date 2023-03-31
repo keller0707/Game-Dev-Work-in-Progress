@@ -1,17 +1,17 @@
 pico-8 cartridge // http://www.pico-8.com
 version 41
 __lua__
-#include ai.lua
+#include ../ai/ai.lua
 
-#include collision.lua
+#include ../ai/collision.lua
 
-#include player.lua
+#include ../ai/player.lua
 
-#include sheep.lua
+#include ../ai/sheep.lua
 
-#include wolf.lua
+#include ../ai/wolf.lua
 
-#include end.lua
+#include ../ai/end.lua
 __gfx__
 00000000004449440004444900044449000444490004444900000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000044ffff400a44fff00a44fff00a44fff00a44fff00000000000000000000000000000000000000000000000000000000000000000000000000000000
