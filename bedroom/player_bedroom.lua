@@ -82,6 +82,14 @@ function player_draw_bedroom()
   spr(player.state, player.x, player.y, 2,2, player.flipsprite)
 end
 
+-- checks player's x y to make sure they are not out of bounds
+function player_boundry()
+  if player.x <= -2 then player.x = -2 end
+	if player.x >= 115 then player.x = 115 end
+	if player.y >= 107 then player.y = 107 end
+	if player.y <= 3 then player.y = 3 end
+end
+
 -- collsion between player and map
 function collide_map(obj,aim,flag)
   --obj = table needs x,y,w,h

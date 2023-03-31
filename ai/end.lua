@@ -22,16 +22,16 @@ function game_end(time,alive_count)
 
     -- these jump player back to selection screen
     if collide_map(p,"left",2) and btnp(5) then
-        load("./carts/debugmenu.p8")
+        load("debugmenu.p8")
     end
     if collide_map(p,"right",2) and btnp(5) then
-        load("./carts/debugmenu.p8")
+        load("debugmenu.p8")
     end
     if collide_map(p,"up",2) and btnp(5) then
-        load("./carts/debugmenu.p8")
+        load("debugmenu.p8")
     end
     if collide_map(p,"down",2) and btnp(5) then
-        load("./carts/debugmenu.p8")
+        load("debugmenu.p8")
     end
 
 end
