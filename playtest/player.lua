@@ -6,7 +6,7 @@ function init_player()
     sp = 1,
 
     -- location
-    x = 521,
+    x = 521, -- 521
     y = 112,
 
     -- mesaure width and height in pixels
