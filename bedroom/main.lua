@@ -1,6 +1,7 @@
 // calls at start of execution
 // init var, data, ect.
 function _init()
+	cd("/carts")
     -- initialize player
 	init_player_bedroom()
 
@@ -56,6 +57,10 @@ function _update()
 	if (btnp(5)) then
 		if (collide_map(player,"up",2)) then
 			load('playtest.p8')
+		end
+		if (collide_map(player,"right",3)) then
+			load("debugmenu.p8")
+			run()
 		end
 	end
 	
