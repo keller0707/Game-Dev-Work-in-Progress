@@ -17,6 +17,8 @@ function _init()
 	map_start = 520
 	map_end = 904
 
+	max_speed = 6 - global_var.ai_sheep
+
 end
 
 function _update()
@@ -42,7 +44,7 @@ function _update()
 	if p.x > 510 then
 		-- check on buggy sheep
 		for i = 1, #sheep_list/2 do
-			move_buggy(i)
+			move_clean(i)
 			if collide(p,sheep_list[i]) then
 				teleport(2)
 			end
@@ -50,7 +52,8 @@ function _update()
 	else
 		-- check on clean sheep
 		for i = #sheep_list/2 + 1, #sheep_list do
-			move_clean(i)
+			-- their mvt is wack so i stopped them
+			--move_clean(i)
 			if collide(p,sheep_list[i]) then
 				teleport(1)
 			end

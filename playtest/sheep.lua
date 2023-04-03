@@ -23,7 +23,9 @@ function init_sheep(x_pos,y_pos)
         animation = 0,
         sprite = 16,
 
-        landed = true
+        landed = true,
+
+        
 
     }
 
@@ -50,47 +52,15 @@ function draw_sheep()
 
 end
 
-function move_buggy(number)
-
-    sheep_list[number].dy += gravity
-    sheep_list[number].dx *= friction
-
-    -- moving left
-    if (sheep_list[number].dx < 1) then
-       sheep_list[number].dx -= 0.2
-    end
-
-    sheep_list[number].flip = false
-
-    if collide_map(sheep_list[number],"left",0) then
-        sheep_list[number].dx = 0
-        sheep_list[number].dy -= 1
-    end
-
-    if sheep_list[number].dy > 0 then
-
-        if collide_map(sheep_list[number],"down",0) then
-            sheep_list[number].dy = 0
-            --sheep_list[number].y = 112
-        end
-
-    end
-
-    sheep_list[number].x += sheep_list[number].dx
-    sheep_list[number].y += sheep_list[number].dy
-
-    -- sheep falls out of world
-    if sheep_list[number].y > 128 then
-        sheep_list[number].x = sheep_list[number].start_x
-        sheep_list[number].y = sheep_list[number].start_y
-    end
-
-end
-
 function move_clean(number)
 
+    -- subject sheep to the natural forces
     sheep_list[number].dy += gravity
-    sheep_list[number].dx *= friction
+
+    -- have to save all 5 sheep in AI minigame to make sheep movement correct
+    if global_var.ai_sheep == 5 then
+        sheep_list[number].dx *= friction
+    end
 
     -- moving right
     if sheep_list[number].flip then
@@ -148,5 +118,25 @@ function move_clean(number)
 
     sheep_list[number].x += sheep_list[number].dx
     sheep_list[number].y += sheep_list[number].dy
+
+    -- sheep falls out of world
+    if sheep_list[number].y > 128 then
+        sheep_list[number].x = sheep_list[number].start_x
+        sheep_list[number].y = sheep_list[number].start_y
+        sheep_list[number].flip = false
+    end
+
+    -- sheep runs past edge of world
+    if sheep_list[number].x < 518 then
+        sheep_list[number].flip = true
+        sheep_list[number].dx = 0
+        sheep_list[number].x += 2
+    end
+
+    if sheep_list[number].x > map_end then
+        sheep_list[number].flip = false
+        sheep_list[number].dx = 0
+        sheep_list[number].x -= 2
+    end
 
 end
