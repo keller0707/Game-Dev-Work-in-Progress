@@ -1,30 +1,226 @@
 function _init() 
 
 	sheep_list = {}
+	powerups = {}
 
-    init_player()
-	init_sheep(678,112)
-	init_sheep(824,112)
+	init_pause()
 
-	init_sheep(302,112)
-	init_sheep(443,112)
+	init_player(1)
+	map_start = 0
+	map_end = 360
+	init_sheep(152,112)
+	init_sheep(285,112)
+	create_powerup(64,96,8,12,32)
+	create_powerup(120,72,15,9,48)
+	create_powerup(120,96,15,12,32)
+	scene = 1
+
+	-- level is fixed
+	if level_1 == 1 and level_2 == 1 then
+		-- nothing happens
+
+	-- level is partially fixed
+	elseif level_1 == 1 or level_2 == 1 then
+		for y = 0, 14 do
+			for x = 0, 36 do
+				if x > 1 and y < 13 and rnd(1) > 0.9 then
+					local random_number = rnd(1)
+					if random_number >= 0.9 then
+						-- place power up block
+						mset(x,y,70)
+					elseif random_number <= 0.5 then
+						-- place screen tear
+						local rand = rnd(1)
+						if rand <= 0.1 then
+							mset(x,y,74)
+						elseif rand <= 0.2 then
+							mset(x,y,75)
+						elseif rand <= 0.3 then
+							mset(x,y,76)
+						elseif rand <= 0.4 then
+							mset(x,y,77)
+						elseif rand <= 0.5 then
+							mset(x,y,78)
+						elseif rand <= 0.6 then
+							mset(x,y,90)
+						elseif rand <= 0.7 then
+							mset(x,y,91)
+						elseif rand <= 0.8 then
+							mset(x,y,92)
+						elseif rand <= 0.9 then
+							mset(x,y,93)
+						else
+							mset(x,y,94)
+						end
+
+					else
+						-- place brick
+						mset(x,y,71)
+					end
+				end
+			end
+		end
+	-- level is bugged
+	else
+		for y = 0, 14 do
+			for x = 0, 36 do
+				if x > 1 and y < 13 and rnd(1) > 0.80 then
+					local random_number = rnd(1)
+					if random_number >= 0.9 then
+						-- place powerup block
+						mset(x,y,70)
+					elseif random_number <= 0.5 then
+						local rand = rnd(1)
+						if rand <= 0.1 then
+							mset(x,y,74)
+						elseif rand <= 0.2 then
+							mset(x,y,75)
+						elseif rand <= 0.3 then
+							mset(x,y,76)
+						elseif rand <= 0.4 then
+							mset(x,y,77)
+						elseif rand <= 0.5 then
+							mset(x,y,78)
+						elseif rand <= 0.6 then
+							mset(x,y,90)
+						elseif rand <= 0.7 then
+							mset(x,y,91)
+						elseif rand <= 0.8 then
+							mset(x,y,92)
+						elseif rand <= 0.9 then
+							mset(x,y,93)
+						else
+							mset(x,y,94)
+						end
+					else
+						-- place brick
+						mset(x,y,71)
+					end
+				end
+			end
+		end
+	end
+
+	-- collision is fixed
+	if collision_1 == 1 and collision_2 == 1 then
+		for x = 0, 45 do
+			mset(x,15,67)
+		end
+	-- collision is partially fixed
+	elseif collision_1 ==1 or collision_2 == 1 then
+		-- the ground
+		for x = 0, 36 do
+			if x > 1 and rnd(1) > 0.75 then
+				mset(x,15,84)
+			else
+				mset(x,15,67)
+			end
+		end
+
+		-- bricks and powerup blocks
+		for y = 0, 14 do
+			for x = 0, 36 do
+				if mget(x,y) == 70 then
+					if rnd(1) > 0.5 then
+						mset(x,y,85)
+					end
+				elseif mget(x,y) == 71 then
+					if rnd(1) > 0.5 then
+						mset(x,y,83)
+					end
+				end
+			end
+		end
+
+	-- collision is bugged
+	else
+		-- the ground
+		for x = 0, 36 do
+			if x > 1 and rnd(1) > 0.5 then
+				mset(x,15,84)
+			else
+				mset(x,15,67)
+			end
+		end
+		-- bricks and powerup block
+		for y = 0, 14 do
+			for x = 0, 36 do
+				if mget(x,y) == 70 then
+					if rnd(1) > 0.25 then
+						mset(x,y,85)
+					end
+				elseif mget(x,y) == 71 then
+					if rnd(1) > 0.25 then
+						mset(x,y,83)
+					end
+				end
+			end
+		end
+	end
+
+	-- controls are fixed
+	if controls_1 == 1 and controls_2 == 1 then
+		left = 0
+		right = 1
+		jump = 2
+	-- controls partially fixed
+	elseif controls_1 == 1 or controls_2 == 1 then
+		local random_number = rnd(1)
+
+		if random_number < 0.33 then
+			left = 1
+			right = 3
+		else
+			left = 3
+			right = 0
+		end
+
+		jump = 2
+
+	-- controls broken
+	else
+		local random_number = rnd(1)
+
+		if random_number < 0.33 then
+			left = 1
+			right = 3
+			jump = 0
+		elseif random_number > 0.66 then
+			left = 3
+			right = 2
+			jump = 1
+		else
+			left = 2
+			right = 0
+			jump = 3
+		end
+
+	end
 
     -- movement variables for player
 	gravity=0.3
     friction=0.85
   
-	--map limits
-	map_start = 520
-	map_end = 904
+	max_speed = 6 - ai_sheep
 
-	max_speed = 6 - global_var.ai_sheep
+	debug = ""
+
+	smoke = {
+		x = 0, 
+		y = 0, 
+		spr = 128,
+		animation = 0
+	}
+
+	-- setting cursor position in debug menu
+	poke(0x430F,54)
+	poke(0x4310,21)
+
+	pause = false
 
 end
 
 function _update()
-
-	player_playtest()
-	player_animate()
 
 	-- simple camera
 	camera_x = p.x-64
@@ -41,21 +237,79 @@ function _update()
 	
 	camera(camera_x,0)
 
-	if p.x > 510 then
-		-- check on buggy sheep
-		for i = 1, #sheep_list/2 do
-			move_clean(i)
+	-- pause screen
+	if pause then
+
+		pause_controls()
+
+	-- unpause screen
+	else
+		player_playtest()
+		player_animate()
+
+		-- for debug printing
+		if btnp(⬅️) then
+			debug = "left arrow key"
+		end
+		if btnp(➡️) then
+		debug = "right arrow key"
+		end
+		if btnp(⬆️) then
+		debug = "up arrow key"
+		end
+		if btnp(⬇️) then
+		debug = "down arrow key"
+		end
+
+		if btnp(4) then
+			pause = true
+			cursor.x = camera_x + 30
+			cursor.y = 48
+		end
+		-- check on sheep
+		for i = 1, #sheep_list do
+			move(i)
+			-- sheep hits player
 			if collide(p,sheep_list[i]) then
-				teleport(2)
+				load("playtest.p8","",stat(6))
 			end
 		end
-	else
-		-- check on clean sheep
-		for i = #sheep_list/2 + 1, #sheep_list do
-			-- their mvt is wack so i stopped them
-			--move_clean(i)
-			if collide(p,sheep_list[i]) then
-				teleport(1)
+
+		-- check on powerups
+		for i = 1, #powerups do
+
+			-- block gets hit by player
+			if mget(powerups[i].block_x,powerups[i].block_y) == 72 then
+				mset(powerups[i].block_x,powerups[i].block_y,73)
+				powerups[i].active = true
+				powerups[i].dy -= 3
+				--debug = powerups[i].dy
+				
+			end
+
+			-- powerup is visible
+			if powerups[i].active then
+
+				-- powerup in the air
+				powerups_move(i)
+
+				-- player picks up powerup
+				if collide(p,powerups[i]) then
+					powerups[i].active = false
+					-- player picked up good banana
+					if powerups[i].sprite == 32 and p.apple == false then
+						p.banana = true
+					-- player picked up good apple
+					elseif powerups[i].sprite == 48 and p.banana == false then
+						p.apple = true
+					elseif powerups[i].sprite == 32 and p.apple == true then
+						p.banana = true
+						p.apple = false
+					elseif powerups[i].sprite == 48 and p.banana == true then
+						p.apple = true
+						p.banana = false
+					end
+				end
 			end
 		end
 	end
@@ -74,5 +328,50 @@ function _draw()
 	--rect(p.x+4,p.y+4,p.x+4,p.y+4,11)
 
 	draw_sheep()
+	draw_powerups()
+
+	if smoke.x > 0 and smoke.y > 0 then
+
+		spr(smoke.spr,smoke.x,smoke.y,1,1)
+		spr(smoke.spr,p.x,p.y,1,1)
+		
+	end
+
+	-- banana display
+	if p.banana == true then
+		spr(32, p.x, p.y - 8, 1, 1)
+	end
+	-- apple display
+	if p.apple == true then
+		spr(48, p.x, p.y - 8, 1, 1)
+	end
+
+	-- game paused
+	if pause then
+
+		draw_pause()
+
+	-- game unpaused
+	else
+
+		-- display buttons pressed
+		print(debug,camera_x + 32,8,0)
+
+		-- player teleports
+		if smoke.x > 0 and smoke.y > 0 then
+
+			-- spoof animiation for player teleporting
+			if time() - smoke.animation > 0.1 then
+				smoke.animation = time()
+				smoke.spr += 1
+				if smoke.spr > 130 then
+					smoke.x = 0
+					smoke.y = 0
+					smoke.spr = 128
+				end
+			end
+
+		end
+	end
 	
 end

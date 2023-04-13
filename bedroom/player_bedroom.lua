@@ -17,6 +17,11 @@ function init_player_bedroom()
   player.w = 16
   player.h = 16
 
+  if stat(6) == "comp" then
+    player.x = 95
+    player.y = 28
+  end
+
 end
 
 // updates the player
@@ -80,6 +85,14 @@ end
 function player_draw_bedroom()
   -- draw sprite
   spr(player.state, player.x, player.y, 2,2, player.flipsprite)
+end
+
+-- checks player's x y to make sure they are not out of bounds
+function player_boundry()
+  if player.x <= -2 then player.x = -2 end
+	if player.x >= 115 then player.x = 115 end
+	if player.y >= 107 then player.y = 107 end
+	if player.y <= 3 then player.y = 3 end
 end
 
 -- collsion between player and map

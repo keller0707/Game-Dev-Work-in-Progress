@@ -6,17 +6,17 @@ function teleport(destination)
     -- teleport to clean playtest
     if(destination == 1) then
         p.y = 112
-        p.x = 145
-        map_start = 144
-        map_end = 520
+        p.x = 1
+        map_start = 0
+        map_end = 360
     end
 
     -- teleport to buggy playtest
     if(destination == 2) then
         p.y = 112
-        p.x = 521
-        map_start = 520
-        map_end = 904
+        p.x = 369
+        map_start = 368
+        map_end = 752
     end
 
 end

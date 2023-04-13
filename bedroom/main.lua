@@ -1,9 +1,19 @@
+-- main.lua
+-- This file holds the the main function
+-- for the bedroom
+
 // calls at start of execution
 // init var, data, ect.
 function _init()
+	-- set the file view to /cart/
+	-- this is so the load command
+	-- can call the other .p8 files
+	cd("carts/")
+
     -- initialize player
 	init_player_bedroom()
 
+	-- set up music
 	music(0, 1000, 0)
 
 	-- debug variables
@@ -12,20 +22,22 @@ function _init()
 	yr1 = 0
 	yr2 = 0
 
+	-- setting cursor position in debug menu
+	poke(0x430F,54)
+	poke(0x4310,21)
+
 end
 
 
 // calls every frame
 function _update()
 
+	-- Update player movement
 	player_update_bedroom()
 	camera(0,0)
 
 	-- boundary checking
-	if player.x <= -2 then player.x = -2 end
-	if player.x >= 115 then player.x = 115 end
-	if player.y >= 107 then player.y = 107 end
-	if player.y <= 3 then player.y = 3 end
+	player_boundry()
 
 	-- collision with objects
 	if (btn(0)) then
@@ -56,6 +68,9 @@ function _update()
 	if (btnp(5)) then
 		if (collide_map(player,"up",2)) then
 			load('playtest.p8')
+		end
+		if (collide_map(player,"right",3)) then
+			load("debugmenu.p8")
 		end
 	end
 	
