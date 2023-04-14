@@ -223,10 +223,10 @@ function _draw()
     print('powerups', 84, 70 , 1)
     print('level', 18, 102 , 1)
     print('sound', 90, 102 , 1)
-    print('X:', 25,25,1)
-    print(cursor.x, 30,25,1) -- 8-17
-    print('Y:', 25, 30,1)
-    print(cursor.y, 30,30,1) -- 11-19
+    --print('X:', 25,25,1)
+    --print(cursor.x, 30,25,1) -- 8-17
+    --print('Y:', 25, 30,1)
+    --print(cursor.y, 30,30,1) -- 11-19
     spr(4, cursor.x, cursor.y, 2,2)
 
 
@@ -325,17 +325,7 @@ function checkhover()
         if (btnp(5)) then
             poke(0x430F,cursor.x)
             poke(0x4310,cursor.y)
-            if controls_1 == 0 then
-                poke(0x430A,1)
-                load("debugmenu.p8")
-            elseif controls_2 == 0 then
-                poke(0x430B,1)
-                load("debugmenu.p8")
-            else
-                poke(0x430A,0)
-                poke(0x430B,0)
-                load("debugmenu.p8")
-            end
+            load("controls.p8")
         end
     end
 

@@ -35,8 +35,7 @@ function init_player(x_pos)
     sliding = false,
     landed = false,
     falling = false,
-    --specify sound quality (0 is bad and 1 is good, 2 is fantastic)
-	  SoundQuality = 0, --Sound Quality 
+
     apple = false,
     banana = false
 
