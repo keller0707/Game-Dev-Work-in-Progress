@@ -17,6 +17,11 @@ function init_player_bedroom()
   player.w = 16
   player.h = 16
 
+  if stat(6) == "comp" then
+    player.x = 95
+    player.y = 28
+  end
+
 end
 
 // updates the player

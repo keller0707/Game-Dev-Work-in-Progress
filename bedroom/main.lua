@@ -22,6 +22,10 @@ function _init()
 	yr1 = 0
 	yr2 = 0
 
+	-- setting cursor position in debug menu
+	poke(0x430F,54)
+	poke(0x4310,21)
+
 end
 
 

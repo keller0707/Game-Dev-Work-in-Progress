@@ -1,12 +1,12 @@
 
-function init_player()
+function init_player(x_pos)
   -- player info
   p = {
     -- sprite number
     sp = 1,
 
     -- location
-    x = 521, -- 521
+    x = x_pos, -- 528
     y = 112,
 
     -- mesaure width and height in pixels
@@ -34,7 +34,10 @@ function init_player()
     jumping = false,
     sliding = false,
     landed = false,
-    falling = false
+    falling = false,
+
+    apple = false,
+    banana = false
 
   }
 
@@ -43,18 +46,26 @@ end
 -- playtest controls
 function player_playtest()
 
+  if p.apple == true then
+    good_apple()
+  end
+
+  if p.banana == true then
+    good_banana()
+  end
+
   p.dy += gravity
   p.dx *= friction
 
   -- move left
-  if btn(0) then
+  if btn(left) then
     p.dx -= p.acceleration
     p.running = true
     p.flipx = true
   end
 
   -- move right
-  if btn(1) then
+  if btn(right) then
     p.dx += p.acceleration
     p.running = true
     p.flipx = false
@@ -62,8 +73,8 @@ function player_playtest()
 
   -- slide
   if p.running
-  and not btn(0)
-  and not btn(1)
+  and not btn(left)
+  and not btn(right)
   and not p.falling
   and not p.jumping then
     p.running = false
@@ -71,7 +82,7 @@ function player_playtest()
   end
 
   -- jump
-  if btnp(2)
+  if btnp(jump)
   and p.landed then
     p.dy -= p.boost
     p.landed = false
@@ -98,6 +109,17 @@ function player_playtest()
       p.dy = 0
     end
 
+    -- hit a powerup block
+    if collide_map(p,"up",2) then
+
+      if mget((p.x+4)/8,(p.y/8)-1) == 70 then
+        -- change powerup block sprite
+        mset((p.x+4)/8,(p.y/8)-1,72)
+
+      end
+
+    end
+
   end
 
   -- check collision left
@@ -116,6 +138,10 @@ function player_playtest()
 
     if collide_map(p,"right",1) then
       p.dx = 0
+    end
+
+    if collide_map(p,"right",2) then
+      --teleport(1)
     end
 
   end
@@ -142,74 +168,25 @@ function player_playtest()
   end
 
   -- teleport back to next stage and back to bedroom
-  if (p.x >= 456 and p.x <= 512 ) then
-    load('game-dev.p8')
-  elseif (p.x >= 840) then
-    teleport(1)
+  if (p.x >= 300 and p.x <= 320 ) then
+    if stat(6) == "play" then
+      load('debugmenu.p8')
+    else
+      load('game-dev.p8',"","comp")
+    end
+  elseif (p.x >= 678 and p.x <= 696) then
+    if stat(6) == "play" then
+      load('debugmenu.p8')
+    else
+      load('game-dev.p8',"","comp")
+    end
   end
 
   -- player falls out of the world
-  if (p.y >= 136 and p.x >= 520) then
-    teleport (2)
+  if (p.y >= 136) then
+    load("playtest.p8","",stat(6))
   end
 
-end
-
--- collsion between player and map
-function collide_map(obj,aim,flag)
-  --obj = table needs x,y,w,h
-  --aim = left,right,up,down
-   
-  local x=obj.x  
-  local y=obj.y
-  local w=obj.w  
-  local h=obj.h
-   
-  local x1=0	 
-  local y1=0
-  local x2=0  
-  local y2=0
-   
-  if aim=="left" then
-    x1=x-1  
-    y1=y
-    x2=x    
-    y2=y+h-1
-   
-  elseif aim=="right" then
-    x1=x+w-1    
-    y1=y
-    x2=x+w  
-    y2=y+h-1
-   
-  elseif aim=="up" then
-    x1=x+2    
-    y1=y-1
-    x2=x+w-3  
-    y2=y
-   
-  elseif aim=="down" then
-    x1=x+2     
-    y1=y+h
-    x2=x+w-3    
-    y2=y+h
-  end
-
-  --pixels to tiles
-  x1/=8    
-  y1/=8
-  x2/=8    
-  y2/=8
-   
-  if fget(mget(x1,y1), flag)
-  or fget(mget(x1,y2), flag)
-  or fget(mget(x2,y1), flag)
-  or fget(mget(x2,y2), flag) then
-    return true
-  else
-    return false
-  end
-   
 end
 
 function player_animate()

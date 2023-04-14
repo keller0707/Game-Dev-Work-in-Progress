@@ -23,7 +23,7 @@ function init_sheep(x_pos,y_pos)
         animation = 0,
         sprite = 16,
 
-        landed = true
+        landed = true,
 
     }
 
@@ -35,12 +35,15 @@ function draw_sheep()
 
     for i = 1, #sheep_list do
 
-        -- loop through sprites based
-        if time() - sheep_list[i].animation > 0.1 then
-            sheep_list[i].animation = time()
-            sheep_list[i].sprite += 1
-            if sheep_list[i].sprite > 19 then
-                sheep_list[i].sprite = 16
+        -- if game is not paused
+        if not pause then
+             -- loop through sprites based
+            if time() - sheep_list[i].animation > 0.1 then
+                sheep_list[i].animation = time()
+                sheep_list[i].sprite += 1
+                if sheep_list[i].sprite > 19 then
+                    sheep_list[i].sprite = 16
+                end
             end
         end
 
@@ -50,65 +53,46 @@ function draw_sheep()
 
 end
 
-function move_buggy(number)
+function move(number)
 
+    -- subject sheep to the natural forces
     sheep_list[number].dy += gravity
-    sheep_list[number].dx *= friction
 
-    -- moving left
-    if (sheep_list[number].dx < 1) then
-       sheep_list[number].dx -= 0.2
+    -- have to save all 5 sheep in AI minigame to make sheep movement correct
+    if ai_sheep == 5 then
+        sheep_list[number].dx *= friction
     end
-
-    sheep_list[number].flip = false
-
-    if collide_map(sheep_list[number],"left",0) then
-        sheep_list[number].dx = 0
-        sheep_list[number].dy -= 1
-    end
-
-    if sheep_list[number].dy > 0 then
-
-        if collide_map(sheep_list[number],"down",0) then
-            sheep_list[number].dy = 0
-            --sheep_list[number].y = 112
-        end
-
-    end
-
-    sheep_list[number].x += sheep_list[number].dx
-    sheep_list[number].y += sheep_list[number].dy
-
-    -- sheep falls out of world
-    if sheep_list[number].y > 128 then
-        sheep_list[number].x = sheep_list[number].start_x
-        sheep_list[number].y = sheep_list[number].start_y
-    end
-
-end
-
-function move_clean(number)
-
-    sheep_list[number].dy += gravity
-    sheep_list[number].dx *= friction
 
     -- moving right
     if sheep_list[number].flip then
 
+        -- constantly moving right
         sheep_list[number].dx += 0.2
 
+        -- sheep runs into a pole and turns around
         if collide_map(sheep_list[number],"right",2) then
             sheep_list[number].flip = false
             sheep_list[number].dx = 0
         end
 
+        -- sheep runs into a solid object
         if collide_map(sheep_list[number],"right",0) then
 
             sheep_list[number].dx = 0
 
-            if sheep_list[number].landed then
-                sheep_list[number].dy -= 4
-                sheep_list[number].landed = false
+            -- jumps over object
+            -- sheep jumps correctly
+            if ai_time > 0 and ai_time < 25 then
+                if sheep_list[number].landed then
+                    sheep_list[number].dy -= 4
+                    sheep_list[number].landed = false
+                end
+            -- sheep jumps incorrectly
+            else
+                if sheep_list[number].landed then
+                    sheep_list[number].dy -= 6
+                    sheep_list[number].landed = false
+                end
             end
 
         end
@@ -116,37 +100,74 @@ function move_clean(number)
     -- moving left
     else
 
+        -- constantly moving left
         sheep_list[number].dx -= 0.2
 
+        -- sheep hits a pole and turns around
         if collide_map(sheep_list[number],"left",2) then
             sheep_list[number].flip = true
             sheep_list[number].dx = 0
         end
 
+        -- sheep runs into a solid object
         if collide_map(sheep_list[number],"left",0) then
 
             sheep_list[number].dx = 0
 
-            if sheep_list[number].landed then
-                sheep_list[number].dy -= 4
-                sheep_list[number].landed = false
+            -- jumps over object
+            -- sheep jumps correctly
+            if ai_time > 0 and ai_time < 25 then
+                if sheep_list[number].landed then
+                    sheep_list[number].dy -= 4
+                    sheep_list[number].landed = false
+                end
+            -- sheep jumps incorrectly
+            else
+                if sheep_list[number].landed then
+                    sheep_list[number].dy -= 6
+                    sheep_list[number].landed = false
+                end
             end
 
         end
 
     end
 
+    -- sheep is jumping
     if sheep_list[number].dy > 0 then
 
+        -- check for its collion on the ground
         if collide_map(sheep_list[number],"down",0) then
             sheep_list[number].dy = 0
             sheep_list[number].landed = true
-            --sheep_list[number].y = 112
+            -- prevent sheep from clipping into the ground too much
+            --sheep_list[number].y -= ((sheep_list[number].y+5)%8)-1
         end
 
     end
 
+    -- update sheep position
     sheep_list[number].x += sheep_list[number].dx
     sheep_list[number].y += sheep_list[number].dy
+
+    -- sheep falls out of world
+    if sheep_list[number].y > 128 then
+        sheep_list[number].x = sheep_list[number].start_x
+        sheep_list[number].y = sheep_list[number].start_y
+        sheep_list[number].flip = false
+    end
+
+    -- sheep runs past edge of world
+    if sheep_list[number].x < map_start then
+        sheep_list[number].flip = true
+        sheep_list[number].dx = 0
+        sheep_list[number].x += 2
+    end
+
+    if sheep_list[number].x > map_end then
+        sheep_list[number].flip = false
+        sheep_list[number].dx = 0
+        sheep_list[number].x -= 2
+    end
 
 end
