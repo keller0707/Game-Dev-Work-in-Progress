@@ -6,7 +6,6 @@ function _init()
         w = 12,
         h = 16
     }
-
     --cursor.x = @0x430F
     --cursor.x = @0x4310
     
@@ -190,7 +189,6 @@ function _init()
             end
         end
     end
-
 end
 
 function _update()
@@ -231,12 +229,12 @@ function _draw()
     --print(cursor.y, 30,30,1) -- 11-19
     spr(4, cursor.x, cursor.y, 2,2)
 
+
     --print(@0x4300,cursor.x,cursor.y,8)
 
 end
 
 function checkhover()
-
     -- Exit button Range: x:8-16 y:11-18
     if(9 <= cursor.x and cursor.x <= 16 and 
       12 <= cursor.y and cursor.y <= 17) then
