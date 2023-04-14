@@ -287,14 +287,14 @@ function checkhover()
             poke(0x4310,cursor.y)
             if collision_1 == 0 then
                 poke(0x4301,1)
-                load("debugmenu.p8")
+                load("collision.p8")
             elseif collision_2 == 0 then
                 poke(0x4302,1)
-                load("debugmenu.p8")
+                load("collision.p8")
             else
                 poke(0x4301,0)
                 poke(0x4302,0)
-                load("debugmenu.p8")
+                load("collision.p8")
             end
         end
     end
@@ -325,17 +325,7 @@ function checkhover()
         if (btnp(5)) then
             poke(0x430F,cursor.x)
             poke(0x4310,cursor.y)
-            if controls_1 == 0 then
-                poke(0x430A,1)
-                load("debugmenu.p8")
-            elseif controls_2 == 0 then
-                poke(0x430B,1)
-                load("debugmenu.p8")
-            else
-                poke(0x430A,0)
-                poke(0x430B,0)
-                load("debugmenu.p8")
-            end
+            load("controls.p8")
         end
     end
 
