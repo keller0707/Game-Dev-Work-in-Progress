@@ -14,7 +14,7 @@ function _init()
 	init_player_bedroom()
 
 	-- set up music
-	music(0, 1000, 0)
+	music(0)
 
 	-- debug variables
 	xr1 = 0

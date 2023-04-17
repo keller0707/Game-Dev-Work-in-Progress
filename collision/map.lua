@@ -12,6 +12,8 @@ function _init()
         green = 67,
         pink = 68
     }
+
+    music(0)
    
     -- Create Blocks
     blocks = {}
@@ -23,6 +25,7 @@ function _init()
     stop = false
     --add_block(64, 8, blockcolor.pink)
     --add_block(56, 8, blockcolor.pink)
+
 end
 function _update()
     if (btnp(5)) then
