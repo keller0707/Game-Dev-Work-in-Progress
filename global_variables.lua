@@ -20,6 +20,10 @@ controls_2 = @0x430B
 powerup_1 = @0x430C
 powerup_2 = @0x430D
 
+-- global variables for sound
+sound_1 = @0x4311
+sound_2 = @0x4312
+
 -- numbers in pico 8 are store in 32 bit format
 -- 16.16 16 bits before decimal and 16 after decimal
 -- @ read 8 bits % reads 16 bits and $ reads 32 bits

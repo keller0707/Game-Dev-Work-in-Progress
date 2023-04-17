@@ -189,6 +189,43 @@ function _init()
             end
         end
     end
+
+    -- setting color for Level button
+    -- green color
+    if sound_1 == 1 and sound_2 == 1 then
+        for y = 12,13 do 
+            for x = 10,14 do
+                if y == 13 then
+                    mset(x,y,103)
+                else
+                    mset(x,y,102)
+                end
+            end
+        end
+    -- yellow color
+    elseif sound_1 == 1 or sound_2 == 1 then
+        for y = 12,13 do 
+            for x = 10,14 do
+                if y == 13 then
+                    mset(x,y,101)
+                else
+                    mset(x,y,100)
+                end
+            end
+        end
+    -- red color
+    else
+        for y = 12,13 do 
+            for x = 10,14 do
+                if y == 13 then
+                    mset(x,y,99)
+                else
+                    mset(x,y,98)
+                end
+            end
+        end
+    end
+
 end
 
 function _update()
@@ -319,7 +356,7 @@ function checkhover()
         end
     end
 
-    -- increment control global variables
+    -- teleport to controls minigame
     if(77 <= cursor.x and cursor.x <= 116 and 
       32 <= cursor.y and cursor.y <= 47) then
         if (btnp(5)) then
@@ -349,7 +386,15 @@ function checkhover()
         end
     end
 
-    
+    -- teleport to sound minigame
+    if(77 <= cursor.x and cursor.x <= 116 and 
+      96 <= cursor.y and cursor.y <= 110) then
+        if (btnp(5)) then
+            poke(0x430F,cursor.x)
+            poke(0x4310,cursor.y)
+            load("sound.p8")
+        end
+    end
 
     -- default for exit
     mset(1,1,6)

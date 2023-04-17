@@ -6,7 +6,7 @@ function init_arrows()
 
         arrow = {
             x = 0,
-            y = 104,
+            y = 9,
             spr = 0,
             active = false,
             color = ""
@@ -60,10 +60,10 @@ function update_arrows()
 
         if arrows[i].active then
             -- arrow speed based on current score
-            arrows[i].y -= 1 + (0.2 * combo)
+            arrows[i].y += 1 + (0.2 * combo)
 
             -- arrow is in range
-            if arrows[i].y <= 26 and arrows[i].y >= 19 then
+            if arrows[i].y >= 102 and arrows[i].y <= 112 then
                 if arrows[i].color == "red" and btnp(0) then
                     arrow_hit(i)
                     dancer.sprite = 130
@@ -87,7 +87,7 @@ function update_arrows()
             end
 
             -- arrow runs past bound
-            if arrows[i].y < 18 then
+            if arrows[i].y > 112 then
                 arrows[i].active = false
                 accuracy.total += 1
 
@@ -128,9 +128,6 @@ end
 
 function draw_arrows()
 
-    --line(10,23,83,23,7)
-    --line(10,24,10,116,7)
-
     if time() - line_animation > 0.1 then
         line_animation = time()
         line_1.y += 1
@@ -152,23 +149,27 @@ function draw_arrows()
     --line(line_3.x,line_3.y,line_3.x,line_3.y + 8,7)
 
 
-    --line(29,24,29,116,7)
-    --line(46,24,46,116,7)
-    --line(65,24,65,116,7)
-    --line(83,24,83,116,7)
-    --line(10,116,83,116,7)
+    rect(19,24,20,104,5)
+    rect(37,24,38,104)
+    rect(55,24,56,104)
+    rect(73,24,74,104)
 
     -- draws box of acceptable arrows in range
     --rect(0,19,146,26,13)
 
-    -- red arrow sillhoute
-    spr(64, 12, 25, 2,2)
-    -- yellow arrow sillhoute
-    spr(66, 30, 25, 2,2)
-    -- green arrow sillhoute
-    spr(68, 48, 25, 2,2)
-    -- blue arrow sillhoute
-    spr(70, 66, 25, 2,2)
+    spr(96,12,12,2,2)
+    spr(98,30,12,2,2)
+    spr(100,48,12,2,2)
+    spr(102,66,12,2,2)
+
+    -- red beat sillhoute
+    spr(64, 12, 104, 2,2)
+    -- yellow beat sillhoute
+    spr(66, 30, 104, 2,2)
+    -- green beat sillhoute
+    spr(68, 48, 104, 2,2)
+    -- blue beat sillhoute
+    spr(70, 66, 104, 2,2)
 
     for i = 1, #arrows do
         if arrows[i].active then

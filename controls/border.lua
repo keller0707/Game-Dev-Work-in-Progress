@@ -1,53 +1,121 @@
-function update_border()
-    if time() - animation > 0.08 then
+function init_border()
 
-        animation = time()
+    border = {
+        top_axis = 0,
+        right_axis = 0,
+        left_axis = 0,
+        bottom_axis = 0
+    }
 
-        for x = 0,15 do
+    rainbow_1 = {
+        x = 7 * 8,
+        y = 0,
+        spr = 16,
+        animation = 0
+    }
 
-            local block = mget(x,0)
+    rainbow_2 = {
+        x = 7 * 8,
+        y = 15 * 8,
+        spr = 16,
+        animation = 0
+    }
 
-            if block < 23 then
-                mset(x,0,block+1)
-            else
-                if mget(x-1,0) == 17 then
-                    mset(x,0,16)
-                end
-            end
+end
 
+function update_border(obj)
+
+    if obj.x >= 0 and obj.x < 120 and obj.y == 0 then
+
+        if time() - obj.animation > 0.1 then
+            obj.x += 1 * (1+combo)
+            obj.animation = time()
         end
 
-        for y = 1,14 do
+    elseif obj.x > 120 then
+        obj.x = 120
 
-            local block = mget(15,y)
+    elseif obj.x == 120 and not (obj.y >= 120) then
 
-            if mget(15,0) == 16 then
-                mset(15,1,16)
-            end
-
-            if block < 23 then
-                mset(15,y,block+1)
-            else
-                if mget(15,y-1) == 16 then
-                    mset(15,y,16)
-                end
-            end
-
+        if time() - obj.animation > 0.1 then
+            obj.y += 1 * (1+combo)
+            obj.animation = time()
         end
 
-        for x = 0,15 do
+    elseif obj.y > 120 then
+        obj.y = 120
 
-            local block = mget(x,15)
+    elseif obj.x > 0 and obj.x <= 120 and obj.y == 120 then
 
-            if block < 23 then
-                mset(x,15,block+1)
-            else
-                if mget(x+1,15) == 16 then
-                    mset(x,15,16)
-                end
-            end
+        if time() - obj.animation > 0.1 then
+            obj.x -= 1 * (1+combo)
+            obj.animation = time()
+        end
 
+    elseif obj.x < 0 then
+        obj.x = 0
+
+    elseif obj.x == 0 and obj.y > 0 then
+
+        if time() - obj.animation > 0.1 then
+            obj.y -= 1 * (1+combo)
+            obj.animation = time()
+        end
+
+    elseif obj.y < 0 then
+        obj.y = 0
+
+    end
+
+end
+
+function draw_border(obj)
+
+    if obj.x >= 0 and obj.x < 120 and obj.y == 0 then
+
+        for x = 0,5 do
+            spr(obj.spr + x, obj.x - (x*8),obj.y)
+        end
+
+    elseif obj.x > 120  and not (obj.y >= 120) then
+
+        for x = 0,5 do
+            spr(obj.spr + x, obj.x - (x*8),obj.y)
+        end
+
+    elseif obj.x == 120 then
+
+        for y = 0,5 do
+            spr(obj.spr + y, obj.x,obj.y - (y*8))
+        end
+
+    elseif obj.x > 0 and obj.x <= 120 and obj.y == 120 then
+
+        for x = 0,5 do
+            spr(obj.spr + x, obj.x + (x*8),obj.y)
+        end
+
+    elseif obj.x < 0 then
+        for x = 0,5 do
+            spr(obj.spr + x, obj.x + (x*8),obj.y)
+        end
+
+    elseif obj.x == 0 and obj.y > 0 then
+
+        for y = 0,5 do
+            spr(obj.spr + y, obj.x,obj.y + (y*8))
+        end
+
+    elseif obj.y < 0 then
+        for y = 0,5 do
+            spr(obj.spr + y, obj.x,obj.y + (y*8))
         end
 
     end
+
+    -- draw border container
+    rect(0,0,127,127,7)
+    rect(7,7,120,120,7)
+
+
 end

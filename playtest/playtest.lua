@@ -218,6 +218,19 @@ function _init()
 
 	pause = false
 
+	flag = {
+		x = 38,
+		y = 6,
+		sprite = 193,
+		animation = 0
+	}
+
+	if level_1 == 1 and level_2 == 1 then
+		flag.sprite = 225
+		mset(37,6,224)
+		mset(37,7,240)
+	end
+
 end
 
 function _update()
@@ -354,8 +367,10 @@ function _draw()
 	-- game unpaused
 	else
 
+		animate_flag()
+
 		-- display buttons pressed
-		print(debug,camera_x + 32,8,0)
+		--print(debug,camera_x + 32,8,0)
 
 		-- player teleports
 		if smoke.x > 0 and smoke.y > 0 then
@@ -374,4 +389,34 @@ function _draw()
 		end
 	end
 	
+end
+
+function animate_flag()
+
+	if time() - flag.animation > 0.069 then
+		flag.animation = time()
+		
+
+		mset(flag.x,flag.y,flag.sprite)
+		mset(flag.x+1,flag.y,flag.sprite+1)
+		mset(flag.x,flag.y+1,flag.sprite+16)
+		mset(flag.x+1,flag.y+1,flag.sprite+17)
+
+		flag.sprite += 2
+
+		if level_1 == 1 and level_2 == 1 then
+			
+			if flag.sprite > 237 then
+				flag.sprite = 225
+			end
+
+		else
+
+			if flag.sprite > 205 then
+				flag.sprite = 193
+			end
+		end
+		
+	end
+
 end
