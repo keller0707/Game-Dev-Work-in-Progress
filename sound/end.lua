@@ -19,7 +19,7 @@ function update_end()
 
     if btnp(5) then
         if cursor.y == 45 then
-            load("controls.p8")
+            load("sound.p8")
         elseif cursor.y == 59 then
             load("debugmenu.p8")
         end
@@ -27,14 +27,14 @@ function update_end()
 
     -- write to memory minigame results
     if overall_score >= 1000 then
-        poke(0x430A,1)
+        poke(0x4311,1)
     else
-        poke(0x430A,0)
+        poke(0x4311,0)
     end
     if ceil(accuracy.score*100) >= 80 then
-        poke(0x430B,1)
+        poke(0x4312,1)
     else
-        poke(0x430B,0)
+        poke(0x4312,0)
     end
 
 end

@@ -16,6 +16,9 @@ function _init()
     --init_block(50, 8, blockcolor.pink)
 end
 function _update()
+    if (btnp(5)) then
+        load("debugmenu.p8")
+    end
     update_block()
 end
 

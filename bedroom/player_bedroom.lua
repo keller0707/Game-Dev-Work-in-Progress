@@ -1,8 +1,8 @@
 // players inital values
 function init_player_bedroom()
   player={}                 -- player's table
-  player.x=10               -- player's X
-  player.y=10               -- player's y
+  player.x=20               -- player's X
+  player.y=20               -- player's y
   player.anim_time=0        -- player's animation time
   player.speed=1            -- player's speed
   player.runstate ={196,202}  -- player run state
@@ -46,7 +46,6 @@ function player_update_bedroom()
  	if btn(2) then 
     player.y-=player.speed
     newstate=player.downstate
-    sfx(5, -1, 0, 31)
   end
     
   -- Down Arrow
