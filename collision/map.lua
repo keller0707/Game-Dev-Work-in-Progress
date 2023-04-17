@@ -12,6 +12,7 @@ function _init()
         green = 67,
         pink = 68
     }
+    music(0)
     init_block(64, 8, blockcolor.pink)
     --init_block(50, 8, blockcolor.pink)
 end
