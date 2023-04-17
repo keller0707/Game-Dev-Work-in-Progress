@@ -1,93 +1,96 @@
-blocks = {}
-
-function init_block(block_x, block_y, block_color)
-    block = {
-        -- starting position
+function add_block(block_x, block_y, block_color)
+    add(blocks, {
+        -- Set Position
         x = block_x,
-        y = block_y, -- 8 - 112
+        y = block_y,
 
-        -- size of blocks
-        --size = block_size,
-
+        -- Set Color
         color = block_color,
-        
-        -- speed
+
+        -- Block Speed
         speed = 8,
 
-        pressed = false,
-
+        -- Clock 
         clock = 0,
 
-        collision = 0,
+        -- Key Press
+        pressed = false,
 
-        -- gravity
-        gravity = 8
-    }
-    add(blocks, block)
-end
+        -- Update Function
+        update = function(self)
+            -- Get current Cell Bellow
+            cellx = (self.x/8)
+            celly = (self.y/8)
 
-function update_block()
-    -- Get current Cell Bellow
-    cellx = (block.x/8)
-    celly = (block.y/8)
+            -- Get Sprites around the block
+            cellsprlft = mget(cellx-1, celly)
+            cellsprrht = mget(cellx+1, celly)
 
-    -- Get Sprites around the block
-    cellsprlft = mget(cellx-1, celly)
-    cellsprrht = mget(cellx+1, celly)
-    cellsprdwn = mget(cellx, celly+1)
+            -- Create togle
+            if not self.pressed then
+                -- Left Arrow Input
+                if btn(0) then
+                    -- Check for walls/blocks
+                    if not fget(cellsprlft, 0) then
+                        -- Update Position
+                        self.x -= self.speed
+                    end  
+                end
 
-    if not block.pressed then
-          
-        -- Left Arrow Input
-        if btn(0) then
-            if not fget(cellsprlft, 0) then
-                block.x -= block.speed
-            end  
-        end
+                -- Right Arrow Input
+                if btn(1) then
+                    -- Check for walls/blocks
+                    if not fget(cellsprrht, 0) then
+                        -- Update Position
+                        self.x += self.speed
+                    end
+                end
 
-        if btn(1) then
-            if not fget(cellsprrht, 0) then
-                block.x += block.speed
+                -- Update Press
+                self.pressed = true
+            else
+                -- Update Press
+                self.pressed = false
             end
+
+            -- Check if time to update
+            if time() - self.clock <= 1 then return end
+            
+           
+            -- Update y position
+            self.y += self.speed
+
+            -- Update clock
+            self.clock = time()
+        end,
+
+        -- Draw Function
+        draw = function(self)
+            palt(0, false)
+            spr(self.color, self.x, self.y)
+        end,
+
+        
+        -- Kill Function
+        kill = function(self)
+            -- Draw obj on map
+            mset(self.x/ 8, self.y /8, self.color)
+            
+            -- Remove From List
+            del(blocks, self)
+        end,
+
+        -- Collision Check
+        check_collision = function(self)
+            -- Get current Cell Bellow
+            cellx = (self.x/8)
+            celly = (self.y/8)
+
+            -- Get Sprites around the block
+            cellsprdwn = mget(cellx, celly+1)
+
+            -- Check if object collide with obj
+            return fget(cellsprdwn, 0)
         end
-
-        block.pressed = true
-    else
-        block.pressed = false
-    end
-
-    -- apply gravity
-    if time() - clock <= 1 then return end
-    
-    if fget(cellsprdwn, 0) then
-        mset(block.x/ 8, block.y /8, block.color)
-
-        reset_block()
-    else
-        block.y += block.gravity
-    end
-    clock = time()
-end
-
-function map_collide()
-
-end
-
-function draw_block()
-    palt(0, false)
-    spr(block.color, block.x, block.y)
-end
-
--- Block Types
--- 1 : I-Block
--- 2 : L-Block 
--- 3 : S-Block
--- 4 : J-BLock
--- 5 : O-Block
--- 6 : T-Block
--- 7 : Z-Block
-
-function reset_block()
-    block.x = 64
-    block.y = 8
+    })
 end
