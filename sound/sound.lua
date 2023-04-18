@@ -27,8 +27,8 @@ function _update()
     -- update accuracy
     accuracy.score = accuracy.count/accuracy.total
 
-    update_border(rainbow_1)
-    update_border(rainbow_2)
+    --update_border(rainbow_1)
+    --update_border(rainbow_2)
 
     -- game over
     if accuracy.total == #arrows then
@@ -57,14 +57,13 @@ function _draw()
 
     map(0,0)
 
-    draw_border(rainbow_1)
-    draw_border(rainbow_2)
+    draw_border()
 
     draw_arrows()
 
     draw_score()
 
-    draw_dancer()
+    --draw_dancer()
 
     if pause_screen then
         draw_pause()

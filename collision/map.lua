@@ -47,6 +47,7 @@ function _update()
         b:update()
     end
     --update_block()
+
 end
 
 function _draw()
