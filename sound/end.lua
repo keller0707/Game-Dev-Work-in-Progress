@@ -26,14 +26,14 @@ function update_end()
     end
 
     -- write to memory minigame results
-    if overall_score >= 1000 then
+    if combo >= 7 then
         poke(0x4311,1)
+        poke(0x4312,1)
+    elseif combo >= 3 then 
+        poke(0x4311,1)
+        poke(0x4312,0)
     else
         poke(0x4311,0)
-    end
-    if ceil(accuracy.score*100) >= 80 then
-        poke(0x4312,1)
-    else
         poke(0x4312,0)
     end
 
@@ -43,7 +43,13 @@ function draw_end()
 
     rectfill(10,23,83,116,1)
 
-    print("condragulations!",16,30,14)
+    if combo >= 8 then
+        print("condragulations!",16,30,14)
+    elseif combo >= 3 then
+        print("good job!",30,30,14)
+    else
+        print("you suck!",29,30,14)
+    end
 
     rect(10,23,83,116)
 

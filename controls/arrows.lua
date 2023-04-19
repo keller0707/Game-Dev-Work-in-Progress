@@ -1,6 +1,6 @@
 function init_arrows()
 
-    for i = 1,20 do 
+    for i = 1,101 do 
 
         local rand = rnd(4)
 
@@ -35,26 +35,35 @@ function init_arrows()
 
     line_animation = 0
 
-    line_1 = {
-        x = 29,
-        y = 36,
-    }
-
-    line_2 = {
-        x = 46,
-        y = 108,
-    }
-
-    line_3 = {
-        x = 65,
-        y = 36,
-    }
-
+    arrow_num = 1
+    arrow_spawn = 1
 
 end
 
 
 function update_arrows()
+
+    if combo >= 6 then
+        arrow_spawn = 0.25
+    elseif combo >= 3 then
+        arrow_spawn = 0.5
+    else
+        arrow_spawn = 1
+    end
+
+    -- spawn new arrow
+    if time() % arrow_spawn == 0 then
+        if arrow_num <= #arrows then
+
+            if arrow_num % 5 == 0 then
+                arrows[arrow_num].active = true
+                arrow_num += 1
+            end
+
+            arrows[arrow_num].active = true
+            arrow_num += 1
+        end
+    end
 
     for i = 1, #arrows do
 
@@ -63,7 +72,7 @@ function update_arrows()
             arrows[i].y -= 1 + (0.2 * combo)
 
             -- arrow is in range
-            if arrows[i].y <= 26 and arrows[i].y >= 19 then
+            if arrows[i].y + 6 >= 26 and arrows[i].y + 9 <= 38 then
                 if arrows[i].color == "red" and btnp(0) then
                     arrow_hit(i)
                     dancer.sprite = 130
@@ -95,9 +104,9 @@ function update_arrows()
                     combo -= 1
                 end
 
-                if i < #arrows then
-                    arrows[i+1].active = true
-                end
+                --if i < #arrows then
+                    --arrows[i+1].active = true
+                --end
 
                 dancer.sprite = 128
 
@@ -120,46 +129,14 @@ function arrow_hit(i)
         combo += 1
     end
 
-    if i < #arrows then
-        arrows[i+1].active = true
-    end
-
 end
 
 function draw_arrows()
 
-    --line(10,23,83,23,7)
-    --line(10,24,10,116,7)
-
-    if time() - line_animation > 0.1 then
-        line_animation = time()
-        line_1.y += 1
-        line_2.y -= 1
-        line_3.y += 1
-        if line_1.y == 108 then
-            line_1.y = 36
-        end
-        if line_2.y == 36 then
-            line_2.y = 108
-        end
-        if line_3.y == 108 then
-            line_3.y = 36
-        end
-    end
-
-    --line(line_1.x,line_1.y,line_1.x,line_1.y + 8,7)
-    --line(line_2.x,line_2.y,line_2.x,line_2.y + 8,7)
-    --line(line_3.x,line_3.y,line_3.x,line_3.y + 8,7)
-
-
-    --line(29,24,29,116,7)
-    --line(46,24,46,116,7)
-    --line(65,24,65,116,7)
-    --line(83,24,83,116,7)
-    --line(10,116,83,116,7)
-
-    -- draws box of acceptable arrows in range
-    --rect(0,19,146,26,13)
+    -- top border is 24
+    --line(10,26,83,26,7)
+    -- bottom border is 40
+    --line(10,38,83,38,7)
 
     -- red arrow sillhoute
     spr(64, 12, 25, 2,2)
@@ -173,6 +150,7 @@ function draw_arrows()
     for i = 1, #arrows do
         if arrows[i].active then
             spr(arrows[i].spr,arrows[i].x,arrows[i].y,2,2)
+            --xrectfill(arrows[i].x+2,arrows[i].y+6,arrows[i].x+14,arrows[i].y+9,14)
         end
     end
 

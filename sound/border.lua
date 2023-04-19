@@ -25,12 +25,6 @@ end
 
 function draw_border()
 
-    -- draw border container
-    rect(0,0,127,127,7)
-
-    -- draw guitar board
-    rect(8,8,84,120,5)
-
     if time() - border_animation > 0.15 then
 
         border_animation = time()
@@ -50,5 +44,18 @@ function draw_border()
         end
 
     end
+
+    -- draw border container
+    rect(0,0,127,127,7)
+
+    -- draw guitar board
+    rect(8,0,84,120,5)
+    rectfill(9,1,83,119,1)
+
+    -- guitar strings
+    rect(19,8,20,104,5)
+    rect(37,8,38,104)
+    rect(55,8,56,104)
+    rect(73,8,74,104)
 
 end

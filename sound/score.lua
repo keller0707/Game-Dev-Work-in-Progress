@@ -12,24 +12,23 @@ end
 
 function draw_score()
 
-    print("accuracy:",85,70,14)
-   
-    if accuracy.total > 0 then
-        if ceil(accuracy.score * 100) <= 80 then
-            print(ceil(accuracy.score*100) .. "%",88,78,8)
-        else
-            print(ceil(accuracy.score*100) .. "%",88,78,11)
-        end
+    -- adjust line for audience meter
+    if combo < 3 then
+        -- point to red section
+        line(93,31,103,44,15)
+        line(94,31,104,44,15)
+
+    elseif combo >= 3 and combo <= 7 then
+        -- point to yellow section
+        line(103,29,103,44,15)
+        line(104,29,104,44,15)
     else
-
+        -- point to green section
+        line(114,31,103,44,15)
+        line(115,31,104,44,15)
     end
 
-    print("overall\nscore:",85,90,14)
-
-    if overall_score >= 1000 then
-        print(overall_score,85,104,11)
-    elseif overall_score > 0 then
-        print(overall_score,85,104,8)
-    end
+    print("rock:",96,67,7)
+    print(combo,96,77)
 
 end
