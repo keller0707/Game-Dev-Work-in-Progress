@@ -1,8 +1,8 @@
 // players inital values
 function init_player_bedroom()
   player={}                 -- player's table
-  player.x=20               -- player's X
-  player.y=20               -- player's y
+  player.x=24               -- player's X
+  player.y=14               -- player's y
   player.anim_time=0        -- player's animation time
   player.speed=1            -- player's speed
   player.runstate ={196,202}  -- player run state
@@ -26,6 +26,7 @@ end
 
 // updates the player
 function player_update_bedroom()
+  
   newstate = nil
   -- Check for button inputs
   -- Left Arrow
@@ -53,6 +54,12 @@ function player_update_bedroom()
     player.y+=player.speed
     newstate=player.upstate
   end 
+
+  
+
+end
+
+function animate_player()
 
   -- return if no input detected
   if newstate == nil then 
