@@ -17,6 +17,7 @@ function _update()
     -- Create a shape with
     -- a random type
     create_shape(rand(1,5))
+    --create_shape(1)
 end
 
 function _draw()
@@ -30,6 +31,7 @@ function _draw()
     -- print('score', 10, 10, 2)
     
     draw_shape()
+    check_row()
 end
 
 -- EXTRA FUNCTION --

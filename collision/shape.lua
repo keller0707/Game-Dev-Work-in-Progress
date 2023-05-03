@@ -1,9 +1,9 @@
 function init_shape()
     shape = {
         -- Overall Position
-        lxindex = 0, -- Leftmost block index
-        rxindex = 0, -- Rightmost block index
-        center  = 0, -- Center of the shape
+        lxindex = 128, -- Leftmost block index
+        rxindex = 0,   -- Rightmost block index
+        center  = 0,   -- Center of the shape
         
         -- Meta Data
         size    = 0,        -- Size of the shape
@@ -140,8 +140,10 @@ function update_shape()
         end
 
         -- Rotate Block
-        if (btn(4)) then
-            rotate(list)
+        if not fget(cellsprlft, 0) and not fget(cellsprrht, 0) then
+            if (btn(4)) then
+                rotate(list)
+            end
         end
 
         shape.pressed = true
@@ -225,6 +227,8 @@ function kill_shape(list)
     -- Clears list
     clear_list(list)
 
+    check_row()
+
     -- Set active to false
     shape.active = false
 end
@@ -285,4 +289,61 @@ function rotate(list)
             b:set_y(point_y - distx)   
         end
     end
+    set_bounds(list)
+end
+
+function check_row()
+    -- TOP LEFT  (1,1)
+    -- TOP RIGHT (14,1)
+    -- BOT LEFT  (1,14)
+    -- BOT RIGHT (14,14)
+    
+    for y=1,14 do
+        line = true
+        for x=1,14 do
+            cell = mget(x, y)
+            if not fget(cell, 0) then
+                line = false
+                break
+            end
+        end
+        if line then
+            adjust_map(y)
+        end
+    end
+end
+
+function adjust_map(celly)
+    for y=celly,2,-1 do
+        for x=1,14 do
+            top_cell = mget(x,y-1)
+            mset(x, y, top_cell)
+        end
+    end
+end
+
+function set_bounds(list)
+    -- Store temp 
+    temp_left_index  = 1
+    temp_right_index = 1
+
+    -- Loop through list
+    for i=2,#list,1 do
+        temp_x_left  = list[temp_left_index]
+        temp_x_right = list[temp_right_index]
+        current_x = list[i]
+
+        -- Find leftmost index
+        if temp_x_left:get_x() > current_x:get_x() then
+            temp_left_index = i
+        end
+
+        -- Find rightmost index
+        if temp_x_right:get_x() < current_x:get_x() then
+            temp_right_index = i
+        end
+    end
+    -- Update new index
+    shape.lxindex = temp_left_index
+    shape.rxindex = temp_right_index
 end
