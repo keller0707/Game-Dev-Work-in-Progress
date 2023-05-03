@@ -26,7 +26,7 @@ function update_end()
     end
 
     -- write to memory minigame results
-    if overall_score >= 4200 then
+    if overall_score >= 6900 then
         poke(0x430A,1)
     else
         poke(0x430A,0)
@@ -43,9 +43,9 @@ function draw_end()
 
     rectfill(10,23,83,116,1)
 
-    if overall_score >= 1000 and ceil(accuracy.score*100) >= 80 then
+    if overall_score >= 6900 and ceil(accuracy.score*100) >= 80 then
         print("condragulations!",16,30,14)
-    elseif overall_score >= 1000 or ceil(accuracy.score*100) >= 80 then
+    elseif overall_score >= 6900 or ceil(accuracy.score*100) >= 80 then
         print("good job!",30,30,14)
     else
         print("you suck!",29,30,14)

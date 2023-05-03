@@ -59,7 +59,7 @@ function draw_score()
 
     print("overall\nscore:",85,90,14)
 
-    if overall_score >= 4200 then
+    if overall_score >= 6900 then
         print(overall_score,85,104,11)
     elseif overall_score > 0 then
         print(overall_score,85,104,8)

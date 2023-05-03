@@ -366,23 +366,13 @@ function checkhover()
         end
     end
 
-    -- increment powerups global variables
+    -- teleport to powerups minigame
     if(77 <= cursor.x and cursor.x <= 116 and 
       65 <= cursor.y and cursor.y <= 79) then
         if (btnp(5)) then
             poke(0x430F,cursor.x)
             poke(0x4310,cursor.y)
-            if powerup_1 == 0 then
-                poke(0x430C,1)
-                load("debugmenu.p8")
-            elseif powerup_2 == 0 then
-                poke(0x430D,1)
-                load("debugmenu.p8")
-            else
-                poke(0x430C,0)
-                poke(0x430D,0)
-                load("debugmenu.p8")
-            end
+            load("powerups.p8")
         end
     end
 
