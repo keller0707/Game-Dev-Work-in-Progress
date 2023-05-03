@@ -20,6 +20,8 @@ function _init()
 
     score_screen = false
 
+    music(0)
+
 end
 
 function _update()
@@ -45,6 +47,7 @@ function _update()
         -- pause screen
         if btnp(4) then
             pause_screen = true
+            music(-1)
         end
     
     end
