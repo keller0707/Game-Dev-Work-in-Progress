@@ -1,12 +1,9 @@
 function _init()
 
     arrows = {}
+    long_beats = {}
 
     init_arrows()
-
-    for i = 1,1 do
-        arrows[i].active = true
-    end
 
     init_score()
 
@@ -20,6 +17,8 @@ function _init()
 
     score_screen = false
 
+    game_over = false
+
 end
 
 function _update()
@@ -27,11 +26,8 @@ function _update()
     -- update accuracy
     accuracy.score = accuracy.count/accuracy.total
 
-    --update_border(rainbow_1)
-    --update_border(rainbow_2)
-
     -- game over
-    if accuracy.total == #arrows then
+    if accuracy.total == #arrows or game_over then
         score_screen = true
         update_end()
     end

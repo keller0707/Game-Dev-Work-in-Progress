@@ -1,0 +1,59 @@
+for i = 1, transition_num do
+
+        for j = 1, 15 do
+            --rectfill()
+        end
+
+        rectfill(8,8*i,i*8,i*8+8,1)
+        rectfill(8*i,8*i,120,i*8+8,1)
+
+        rect(8,8,120,120,3)
+
+        for j = 1, 14 do
+            if rnd(1) >= 0.5 then
+                spr(32,j*8,i*8)
+            else
+                spr(33,j*8,i*8)
+            end
+        end
+
+        if time() - transition_animation > 0.05 then
+
+            transition_animation = time()
+
+            if transition_num < 14 then
+                transition_num += 1
+            else
+                transition_done = true
+            end
+
+        end
+
+        if i % 2 == 1 then
+
+            --rectfill(8,8*i,i*8,i*8+8,1)
+            --rect(8,8*i,i*8,i*8+8,3)
+
+        else
+
+            --rectfill(120 - (8*i),8*i,120,i*8+8,1)
+            --rect(120 - (8*i),8*i,120,i*8+8,3)
+
+        end
+
+        --rectfill(8,8,i*8,16,1)
+        --rect(8,8,i*8,16,3)
+
+        --rectfill(120 - (8*i),16,120,24,1)
+        --rect(120 - (8*i),16,120,24,3)
+
+        --rectfill(8,24,i*8,32,1)
+        --rect(8,24,i*8,32,3)
+
+        if i % 2 == 1 then
+            --rect(0,0,i*8,8,3)
+            --rect(i+9,i+9,119-i,119-i,3)
+        else
+            --rect(i+9,i+9,119-i,119-i,1)
+        end
+    end

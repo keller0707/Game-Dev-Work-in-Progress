@@ -21,7 +21,7 @@ end
 function draw_dancer()
 
     -- draw pole behind dancer
-    line(100,35,100,61,7)
+    --line(100,35,100,61,7)
 
     -- draw dancer
     spr(dancer.sprite,dancer.x,dancer.y,2,2,dancer.flip)

@@ -49,8 +49,8 @@ function pause_controls()
 end
 
 function draw_pause()
-    rectfill(camera_x+27,27,camera_x+100,97,15)
-    rect(camera_x+27,27,camera_x+100,97,1)
+    rectfill(camera_x+27,27,camera_x+100,97,1)
+    rect(camera_x+27,27,camera_x+100,97,10)
     line(camera_x+27,40,camera_x+100,40)
     print("game paused!",camera_x+41,32)
     print("restart level",camera_x+39,50)

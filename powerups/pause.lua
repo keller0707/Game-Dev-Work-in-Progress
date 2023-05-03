@@ -3,7 +3,7 @@ function init_pause()
     pause = {
         x = 30,
         y = 49,
-        spr = 35
+        spr = 16
     }
 
     pause_screen = false
@@ -34,7 +34,7 @@ function pause_controls()
     if btnp(5) then
 
         if pause.y == 49 then
-            load("controls.p8")
+            load("powerups.p8")
         elseif pause.y == 65 then
             load("debugmenu.p8")
         end
@@ -57,6 +57,6 @@ function draw_pause()
     print("go to debug",40,66)
     --rect(camera_x,0,camera_x+127,127)
 
-    spr(7,pause.x,pause.y)
+    spr(pause.spr,pause.x,pause.y)
 
 end
