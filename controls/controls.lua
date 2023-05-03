@@ -5,7 +5,7 @@ function _init()
     init_arrows()
 
     for i = 1,1 do
-        arrows[i].active = true
+        --arrows[i].active = true
     end
 
     init_score()
@@ -25,6 +25,8 @@ function _init()
 end
 
 function _update()
+
+    
 
     -- update accuracy
     accuracy.score = accuracy.count/accuracy.total

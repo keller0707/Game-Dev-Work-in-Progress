@@ -26,52 +26,84 @@ function _init()
 	poke(0x430F,54)
 	poke(0x4310,21)
 
+	-- pause screen 
+	pause_screen = false
+	init_pause()
+
+	-- computer displays
+	init_comp()
+
+	-- other displays
+	init_display()
+
+	init_door()
+
 end
 
 
 // calls every frame
 function _update()
 
-	-- Update player movement
-	player_update_bedroom()
+	
 	camera(0,0)
 
 	-- boundary checking
-	player_boundry()
-
-	-- collision with objects
-	if (btn(0)) then
-		if (collide_map(player,"left",1)) then
-			player.x += 1
-		end
+	if not door_transition then
+		player_boundry()
 	end
 
-	if (btn(1)) then 
-		if (collide_map(player,"right",1)) then
-			player.x -= 1
-		end
-	end
+	-- game paused
+	if pause_screen then
 
-	if (btn(2)) then
-		if (collide_map(player,"up",1)) then
-			player.y += 1
-		end
-	end
+		pause_controls()
 
-	if (btn(3)) then
-		if (collide_map(player,"down",1)) then
-			player.y -= 1
-		end
-	end
+	-- unpaused game
+	else
 
-	-- interaction with objects
-	if (btnp(5)) then
-		if (collide_map(player,"up",2)) then
-			load('playtest.p8')
+		if btnp(4) and not stop_player then
+			pause_screen = true
 		end
-		if (collide_map(player,"right",3)) then
-			load("debugmenu.p8")
+--
+		-- Update player movement
+		if not stop_player then
+			player_update_bedroom()
 		end
+
+		animate_player()
+
+		-- popups and jump for computers
+		update_comp()
+
+		-- other displays
+		update_display()
+
+		update_door()
+	
+		-- collision with objects
+		if (btn(0)) then
+			if (collide_map(player,"left",1)) then
+				player.x += 1
+			end
+		end
+	
+		if (btn(1)) then 
+			if (collide_map(player,"right",1)) then
+				player.x -= 1
+			end
+		end
+	
+		if (btn(2)) then
+			if (collide_map(player,"up",1)) then
+				player.y += 1
+			end
+		end
+	
+		if (btn(3)) then
+			if (collide_map(player,"down",1)) then
+				player.y -= 1
+			end
+		end
+
 	end
 	
 end
@@ -81,12 +113,30 @@ end
 function _draw()
 
 	-- clear screen
-	cls(1)
+	cls(0)
 
 	-- updates map
 	map(0,0)
 
+	-- draw table in empty room
+	--rectfill(116,100,126,122,4)
+	--rectfill(98,114,126,122,4)
+	--rectfill(114,101,115,103,4)
+
 	-- updates sprite
 	player_draw_bedroom()
+
+	-- pop ups for computers
+	draw_comp()
+
+	-- other displays
+	draw_display()
+
+	-- draw pause screen
+	if pause_screen then
+		draw_pause()
+	end
+
+	draw_door()
 	
 end

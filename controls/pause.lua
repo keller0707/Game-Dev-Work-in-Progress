@@ -51,7 +51,7 @@ end
 
 function draw_pause()
     rectfill(27,27,100,97,1)
-    rect(27,27,100,97,14)
+    rect(27,27,100,97,10)
     line(27,40,100,40)
     print("game paused!",41,32)
     print("restart level",40,50)

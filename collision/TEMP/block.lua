@@ -69,10 +69,6 @@ function update_block()
     clock = time()
 end
 
-function map_collide()
-
-end
-
 function draw_block()
     palt(0, false)
     spr(block.color, block.x, block.y)
