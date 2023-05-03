@@ -44,6 +44,7 @@ function pause_controls()
     -- unpause
     if btnp(4) then
         pause_screen = false
+        music(stat(54))
     end
 
 end

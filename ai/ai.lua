@@ -80,6 +80,9 @@ function _update()
             -- check if player is in range
             if (in_range(p,sheep_list[i],8)) then
                 sheep_list[i].active = true
+                if (stat(47) == -1) then
+                    sfx(00, 1)
+                end
             end
             -- sheep set to follow player
             if (sheep_list[i].active == true and not sheep_list[i].safe and sheep_list[i].alive) then
@@ -129,6 +132,7 @@ function _update()
 
                 -- jump player to score screen
                 if not score_screen then
+                    sfx(3,3)
                     p.y = 97
                     p.x = 315
                     score_screen = true
@@ -162,6 +166,9 @@ function _update()
                 -- wolf is hunting sheep
                 if (in_range(sheep_list[l],wolf_list[i],40)) and not sheep_list[l].safe  and sheep_list[l].alive then
                     follow(sheep_list[l],wolf_list[i],1,2)
+                    if (stat(46) == -1) then 
+                        sfx(1)
+                    end
                 end
 
                 -- wolf has caught sheep
@@ -171,6 +178,7 @@ function _update()
                     sheep_list[l].alive = false
                     add(objective,true)
                     dead_count += 1
+                    sfx(2)
                 end
 
             end

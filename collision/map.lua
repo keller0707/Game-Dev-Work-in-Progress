@@ -35,7 +35,6 @@ function _draw()
 end
 
 -- EXTRA FUNCTION --
-
 function rand(first, last)
     return flr(rnd(last)) + first
 end
