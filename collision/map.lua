@@ -4,6 +4,9 @@ function _init()
 
     -- Init shape
     init_shape()
+
+    -- Create Score
+    score = 0
 end
 function _update()
     -- Checks for keypress
@@ -28,7 +31,8 @@ function _draw()
     map(0,0)
     
     -- Print score
-    -- print('score', 10, 10, 2)
+    print('score', 10, 10, 2)
+    print(score,35, 10, 2)
     
     draw_shape()
     check_row()
