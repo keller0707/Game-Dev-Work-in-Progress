@@ -8,12 +8,10 @@ function init_card()
 
     for i = 0, 3 do 
 
-        for j = 0, 3 do
+        for j = 1, 3 do
 
             if not (i == 0 and j == 0) 
-            and not (i == 0 and j == 3)
-            and not (i == 3 and j == 0)
-            and not (i == 3 and j == 3) then
+            and not (i == 3 and j == 0) then
 
                 local card = {
                     x = 3 + i*32,
