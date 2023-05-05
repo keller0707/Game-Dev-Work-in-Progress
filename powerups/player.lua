@@ -1,83 +1,37 @@
 function init_player()
 
     p = {
-        x = 16,
-        y = 16,
-        spr = 64,
-        animation = 0,
-
-        flip = false,
-        moving = false
+        x = 35,
+        y = 38
     }
 
 end
 
 function update_player()
 
-    local old_x = p.x
-    local old_y = p.y
-
-    if btn(0) then
-        p.x -= 2
+    if btnp(0) and p.x > 3 then
+        p.x -= 32
         p.flip = true
     end
 
-    if btn(1) then
-        p.x += 2
+    if btnp(1) and p.x < 99 then
+        p.x += 32
         p.flip = false
     end
 
-    if btn(2) then
-        p.y -= 2
+    if btnp(2) and p.y > 38 then
+        p.y -= 30
     end
 
-    if btn(3) then
-        p.y += 2
-    end
-
-    -- boundary checking
-    if p.x <= -2 then
-        p.x += 2
-    end
-
-    if p.x >= 122 then
-        p.x -= 2
-    end
-
-    if p.y <= -2 then
-        p.y += 2
-    end
-
-    if p.y >= 122 then
-        p.y -= 2
-    end
-
-    if old_x == p.x and old_y == p.y then
-        p.moving = false
-    else
-        p.moving = true
+    if btnp(3) and p.y < 98 then
+        p.y += 30
     end
 
 end
 
 function draw_player()
 
-    if p.moving then
-
-        if time() - p.animation > 0.1 then
-            p.animation = time()
-            p.spr += 1
-            if p.spr > 68 then
-                p.spr = 65
-            end
-        end
-
-    else
-
-        p.spr = 64
-
-    end
-
-    spr(p.spr,p.x,p.y,1,1,p.flip)
+    rect(p.x,p.y,p.x+24,p.y+24,12)
+    rect(p.x+1,p.y+1,p.x+23,p.y+23,12)
 
 end

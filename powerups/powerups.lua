@@ -10,6 +10,8 @@ function _init()
 
     init_end()
 
+    init_host()
+
     mistakes = 0
     matches = 0 
 
@@ -43,6 +45,8 @@ function _draw()
 
     draw_player()
 
+    draw_host()
+
     if pause_screen then
         draw_pause()
     end
@@ -55,8 +59,8 @@ function _draw()
         mis_color = 8
     end
 
-    print("mistakes", 95,8,mis_color)
-    print(mistakes,95,16,mis_color)
+    print("mistakes:", 30,8,mis_color)
+    print(mistakes,67,8,mis_color)
 
     if matches == 6 then
         draw_end()
