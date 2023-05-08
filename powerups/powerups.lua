@@ -14,6 +14,8 @@ function _init()
 
     mistakes = 0
     matches = 0 
+    
+    music(00)
 
 end
 

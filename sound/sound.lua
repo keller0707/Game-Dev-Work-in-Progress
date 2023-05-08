@@ -19,6 +19,8 @@ function _init()
 
     game_over = false
 
+    music(00)
+
 end
 
 function _update()

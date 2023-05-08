@@ -37,6 +37,7 @@ function _init()
     score_screen = false
     recorded_time = 0
 
+    music(00)
 end
 
 function _update()
@@ -80,9 +81,6 @@ function _update()
             -- check if player is in range
             if (in_range(p,sheep_list[i],8)) then
                 sheep_list[i].active = true
-                if (stat(47) == -1) then
-                    sfx(00, 1)
-                end
             end
             -- sheep set to follow player
             if (sheep_list[i].active == true and not sheep_list[i].safe and sheep_list[i].alive) then
@@ -96,6 +94,7 @@ function _update()
             sheep_list[i].safe then
                 sheep_list[i].safe = true
                 add(objective,true)
+                sfx(00, 1)
             end
 
             -- sheep is safe
