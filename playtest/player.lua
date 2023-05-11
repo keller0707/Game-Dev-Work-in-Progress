@@ -174,6 +174,7 @@ function player_playtest()
 
   -- teleport back to next stage and back to bedroom
   if (p.x >= 300 and p.x <= 320 ) then
+    sfx(13)
     if stat(6) == "play" then
       load('debugmenu.p8')
     else
