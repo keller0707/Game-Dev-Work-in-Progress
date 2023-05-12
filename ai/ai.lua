@@ -46,6 +46,7 @@ function _init()
     -- variable for time
     recorded_time = 0
 
+    music(00)
 end
 
 function _update()
@@ -109,6 +110,7 @@ function _update()
             sheep_list[i].safe then
                 sheep_list[i].safe = true
                 add(objective,true)
+                sfx(00, 1)
             end
 
             -- sheep is safe
@@ -179,8 +181,9 @@ function _update()
                 -- wolf is hunting sheep
                 if (in_range(sheep_list[l],wolf_list[i],40)) and not sheep_list[l].safe  and sheep_list[l].alive then
                     follow(sheep_list[l],wolf_list[i],1,2)
-                    if (stat(46) == -1) then 
-                        sfx(1)
+                    if (stat(49) == -1) then 
+                        sfx(1, 03)
+
                     end
                 end
 
@@ -190,7 +193,7 @@ function _update()
                     sheep_list[l].alive = false
                     add(objective,true)
                     dead_count += 1
-                    sfx(2)
+                    sfx(2, 03)
                 end
 
             end

@@ -141,7 +141,7 @@ function update_shape()
 
         -- Rotate Block
         if not fget(cellsprlft, 0) and not fget(cellsprrht, 0) then
-            if (btn(4)) then
+            if (btn(5)) then
                 rotate(list)
             end
         end
@@ -297,6 +297,7 @@ function check_row()
     -- TOP RIGHT (14,1)
     -- BOT LEFT  (1,14)
     -- BOT RIGHT (14,14)
+    count = 0
     
     for y=1,14 do
         line = true
@@ -309,7 +310,12 @@ function check_row()
         end
         if line then
             adjust_map(y)
+            count +=1
         end
+    end
+
+    if count != 0 then
+        score += (count*2) -1
     end
 end
 

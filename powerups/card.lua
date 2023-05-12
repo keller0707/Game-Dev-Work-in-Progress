@@ -6,7 +6,6 @@ function init_card()
     local red = 0
     local blue = 0
     local green = 0
-
     -- create cards
     for i = 0, 3 do 
 
@@ -100,13 +99,17 @@ function update_card()
             card_1 = 0
             card_2 = 0
             matches += 1
+
         -- cards do not match
+        sfx(01)
+
         else
             card_list[card_1].bad_match = 30
             card_list[card_2].bad_match = 30
             card_1 = 0
             card_2 = 0
             mistakes += 1
+            sfx(02)
         end
     end
 

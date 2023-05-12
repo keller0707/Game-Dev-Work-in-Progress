@@ -11,7 +11,8 @@ function init_arrows()
             y = -17,
             spr = 0,
             active = false,
-            color = ""
+            color = "",
+            note = 20
         }
 
         -- set color for beat
@@ -109,7 +110,9 @@ end
 
 -- arrow was pressed on time
 function arrow_hit(i)
-    
+    sfx(arrow.note, 3)
+    arrow.note += 1
+    if (arrow.note > 26) arrow.note = 20
     arrows[i].active = false
     overall_score += 10 * (1 + combo)
     accuracy.total += 1

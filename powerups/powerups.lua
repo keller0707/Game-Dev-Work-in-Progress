@@ -23,6 +23,8 @@ function _init()
 
     -- hold number of card matches
     matches = 0 
+    
+    music(00)
 
 end
 

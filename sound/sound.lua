@@ -22,6 +22,8 @@ function _init()
     score_screen = false
     game_over = false
 
+    music(00)
+
 end
 
 function _update()
