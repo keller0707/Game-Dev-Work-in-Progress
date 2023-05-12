@@ -5,8 +5,6 @@ __lua__
 
 #include ../playtest/player.lua
 
-#include ../playtest/teleport.lua
-
 #include ../playtest/sheep.lua
 
 #include ../playtest/collision.lua

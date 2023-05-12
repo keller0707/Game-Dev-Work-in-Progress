@@ -1,9 +1,12 @@
 function init_arrows()
 
+    -- create 101 arrows
     for i = 1,101 do 
 
+        -- random number from 0 - 4
         local rand = rnd(4)
 
+        -- create arrow object
         arrow = {
             x = 0,
             y = 104,
@@ -12,6 +15,7 @@ function init_arrows()
             color = ""
         }
 
+        -- set arrow color based on random number
         if rand < 1 then
             arrow.x = 12
             arrow.spr = 72
@@ -30,11 +34,14 @@ function init_arrows()
             arrow.color = "blue"
         end
 
+        -- add arrow object to list of arrows
         add(arrows,arrow)
     end
 
+    -- animation time for border rainbows
     line_animation = 0
 
+    -- variables for arrow spawn rate
     arrow_num = 1
     arrow_spawn = 1
     arrow_sound = 0
@@ -44,6 +51,7 @@ end
 
 function update_arrows()
 
+    -- spawn arrows based on current combo score
     if combo >= 6 then
         arrow_spawn = 0.25
     elseif combo >= 3 then
@@ -105,10 +113,6 @@ function update_arrows()
                     combo -= 1
                 end
 
-                --if i < #arrows then
-                    --arrows[i+1].active = true
-                --end
-
                 dancer.sprite = 128
 
             end
@@ -144,11 +148,6 @@ end
 
 function draw_arrows()
 
-    -- top border is 24
-    --line(10,26,83,26,7)
-    -- bottom border is 40
-    --line(10,38,83,38,7)
-
     -- red arrow sillhoute
     spr(64, 12, 25, 2,2)
     -- yellow arrow sillhoute
@@ -158,10 +157,10 @@ function draw_arrows()
     -- blue arrow sillhoute
     spr(70, 66, 25, 2,2)
 
+    -- draw active arrows
     for i = 1, #arrows do
         if arrows[i].active then
             spr(arrows[i].spr,arrows[i].x,arrows[i].y,2,2)
-            --xrectfill(arrows[i].x+2,arrows[i].y+6,arrows[i].x+14,arrows[i].y+9,14)
         end
     end
 

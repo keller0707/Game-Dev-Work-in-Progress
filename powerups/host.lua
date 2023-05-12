@@ -1,10 +1,12 @@
 function init_host()
 
+    -- create sheep pbject
     host = {
         spr = 64,
         animation = 0
     }
 
+    -- create smoke puff object
     puff = {
         x = 87,
         y = 13,
@@ -15,11 +17,9 @@ function init_host()
 
 end
 
-function update_host()
-end
-
 function draw_host()
 
+    -- animate smoke puff
     if time() - puff.animation > 0.2 then
         puff.animation = time()
         puff.y -= 1
@@ -38,18 +38,10 @@ function draw_host()
         end
     end
 
-    if puff.flip then
-        --circ(puff.x + 1,puff.y,0,7)
-        --circ(puff.x,puff.y - 1,0,7)
-        --circ(puff.x + 1,puff.y - 2,0,7)
-    else
-        --circ(puff.x,puff.y,0,7)
-        --circ(puff.x + 1,puff.y - 1,0,7)
-        --circ(puff.x,puff.y - 2,0,7)
-    end
-
+    -- draw smoke puff
     circ(puff.x,puff.y,puff.radi,7)
 
+    -- draw sheep
     spr(128,90,2,4,4)
 
 end

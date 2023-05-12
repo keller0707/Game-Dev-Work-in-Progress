@@ -1,4 +1,5 @@
 function _init()
+    -- create cursor object
     cursor = {
         x = @0x430F,
         y = @0x4310,
@@ -6,9 +7,6 @@ function _init()
         w = 12,
         h = 16
     }
-    --cursor.x = @0x430F
-    --cursor.x = @0x4310
-    
 
     -- setting color for AI button
     -- green color
@@ -253,9 +251,12 @@ function _update()
 end
 
 function _draw()
+    -- clear screen
     cls(1)
+    -- draw map
     map(0,0)
 
+    -- print text title
     print('exit', 25, 14, 1)
     print('playtest',72,14,1)
     print('ai', 24, 38 , 1)
@@ -264,14 +265,9 @@ function _draw()
     print('powerups', 84, 70 , 1)
     print('level', 18, 102 , 1)
     print('sound', 90, 102 , 1)
-    --print('X:', 25,25,1)
-    --print(cursor.x, 30,25,1) -- 8-17
-    --print('Y:', 25, 30,1)
-    --print(cursor.y, 30,30,1) -- 11-19
+
+    -- draw cursor
     spr(4, cursor.x, cursor.y, 2,2)
-
-
-    --print(@0x4300,cursor.x,cursor.y,8)
 
 end
 

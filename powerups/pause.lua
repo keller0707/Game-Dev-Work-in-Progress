@@ -1,11 +1,13 @@
 function init_pause()
 
+    -- create puff object
     pause = {
         x = 30,
         y = 49,
         spr = 16
     }
 
+    -- check if screen is paused
     pause_screen = false
 
 end
@@ -49,14 +51,16 @@ function pause_controls()
 end
 
 function draw_pause()
+
+    -- draw pause screen
     rectfill(27,27,100,97,1)
     rect(27,27,100,97,10)
     line(27,40,100,40)
     print("game paused!",41,32)
     print("restart level",40,50)
     print("go to debug",40,66)
-    --rect(camera_x,0,camera_x+127,127)
 
+    -- draw circle cursor
     spr(pause.spr,pause.x,pause.y)
 
 end

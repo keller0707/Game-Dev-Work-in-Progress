@@ -1,5 +1,6 @@
 function create_powerup(x_pos,y_pos,blockX,blockY,spr)
 
+    -- create powerup object
     powerup = {
         x = x_pos,
         y = y_pos,
@@ -13,10 +14,12 @@ function create_powerup(x_pos,y_pos,blockX,blockY,spr)
         block_y = blockY
     }
 
+    -- add powerup to list
     add(powerups,powerup)
 
     local length = #powerups
 
+    -- return length of powerups list
     return length
 
 end
@@ -54,15 +57,17 @@ function draw_powerups ()
         if powerups[i].active then
             spr(powerups[i].sprite,powerups[i].x,powerups[i].y,1,1)
         end
-        --rect(sheep_list[i].x,sheep_list[i].y,sheep_list[i].x+7,sheep_list[i].y+8,8)
+
     end
 
 end
 
 -- powerup for good apple
 function good_apple()
+    -- player presses z key
     if btnp(5) then
 
+        -- variables for smoke animation
         smoke.x = p.x
         smoke.y = p.y
 
@@ -90,8 +95,10 @@ end
 
 -- powerup for good banana
 function good_banana()
+    -- player presses z key
     if btnp(5) then
 
+        -- variables for smoke animation
         smoke.x = p.x
         smoke.y = p.y
 

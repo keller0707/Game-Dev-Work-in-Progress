@@ -1,18 +1,30 @@
 function _init() 
 
+	-- list to hold sheep objects
 	sheep_list = {}
+	-- list to hold powerups
 	powerups = {}
 
+	-- create pause screen
 	init_pause()
 
+	-- create player
 	init_player(1)
+
+	-- variabel for map area
 	map_start = 0
 	map_end = 360
+
+	-- create sheep objects
 	init_sheep(152,112)
 	init_sheep(285,112)
+
+	-- create powerup objects
 	create_powerup(64,96,8,12,32)
 	create_powerup(120,72,15,9,48)
 	create_powerup(120,96,15,12,32)
+
+	-- set scene
 	scene = 1
 
 	-- level is fixed
@@ -24,6 +36,7 @@ function _init()
 		for y = 0, 14 do
 			for x = 0, 36 do
 				if x > 1 and y < 13 and rnd(1) > 0.9 then
+					-- random number from 0 - 1
 					local random_number = rnd(1)
 					if random_number >= 0.9 then
 						-- place power up block
@@ -65,6 +78,7 @@ function _init()
 		for y = 0, 14 do
 			for x = 0, 36 do
 				if x > 1 and y < 13 and rnd(1) > 0.80 then
+					-- random number from 0 - 1
 					local random_number = rnd(1)
 					if random_number >= 0.9 then
 						-- place powerup block
@@ -179,6 +193,7 @@ function _init()
 
 	-- controls broken
 	else
+		-- random number from 0 - 1
 		local random_number = rnd(1)
 
 		if random_number < 0.33 then
@@ -205,6 +220,7 @@ function _init()
 
 	debug = ""
 
+	-- smoke object for teleportation
 	smoke = {
 		x = 0, 
 		y = 0, 
@@ -216,8 +232,10 @@ function _init()
 	poke(0x430F,54)
 	poke(0x4310,21)
 
+	-- check if screen is paused
 	pause = false
 
+	-- object for flag
 	flag = {
 		x = 38,
 		y = 6,
@@ -225,6 +243,7 @@ function _init()
 		animation = 0
 	}
 
+	-- level is fixed, set american flag
 	if level_1 == 1 and level_2 == 1 then
 		flag.sprite = 225
 		mset(37,6,224)
@@ -248,6 +267,7 @@ function _update()
 		camera_x = map_end-128
 	end
 	
+	-- set camera
 	camera(camera_x,0)
 
 	-- pause screen
@@ -274,11 +294,13 @@ function _update()
 		debug = "down arrow key"
 		end
 
+		-- pause screen
 		if btnp(4) then
 			pause = true
 			cursor.x = camera_x + 30
 			cursor.y = 48
 		end
+
 		-- check on sheep
 		for i = 1, #sheep_list do
 			move(i)
@@ -296,7 +318,6 @@ function _update()
 				mset(powerups[i].block_x,powerups[i].block_y,73)
 				powerups[i].active = true
 				powerups[i].dy -= 3
-				--debug = powerups[i].dy
 				
 			end
 
@@ -337,12 +358,16 @@ function _draw()
 	-- updates map
 	map(0,0)
 
+	-- draw player
 	spr(p.sp,p.x,p.y, 1, 1, p.flipx)
-	--rect(p.x+4,p.y+4,p.x+4,p.y+4,11)
 
+	-- draw sheep
 	draw_sheep()
+
+	-- draw powerups
 	draw_powerups()
 
+	-- play teleport animation
 	if smoke.x > 0 and smoke.y > 0 then
 
 		spr(smoke.spr,smoke.x,smoke.y,1,1)
@@ -350,11 +375,11 @@ function _draw()
 		
 	end
 
-	-- banana display
+	-- banana display above player head
 	if p.banana == true then
 		spr(32, p.x, p.y - 8, 1, 1)
 	end
-	-- apple display
+	-- apple display above player head
 	if p.apple == true then
 		spr(48, p.x, p.y - 8, 1, 1)
 	end
@@ -367,10 +392,8 @@ function _draw()
 	-- game unpaused
 	else
 
+		-- animate flag
 		animate_flag()
-
-		-- display buttons pressed
-		--print(debug,camera_x + 32,8,0)
 
 		-- player teleports
 		if smoke.x > 0 and smoke.y > 0 then
@@ -393,10 +416,11 @@ end
 
 function animate_flag()
 
+	-- animate flag
 	if time() - flag.animation > 0.069 then
 		flag.animation = time()
-		
 
+		-- set sprites for flag
 		mset(flag.x,flag.y,flag.sprite)
 		mset(flag.x+1,flag.y,flag.sprite+1)
 		mset(flag.x,flag.y+1,flag.sprite+16)
@@ -404,12 +428,14 @@ function animate_flag()
 
 		flag.sprite += 2
 
+		-- level is fixed, american flag
 		if level_1 == 1 and level_2 == 1 then
 			
 			if flag.sprite > 237 then
 				flag.sprite = 225
 			end
 
+		-- level broken, sovient flag
 		else
 
 			if flag.sprite > 205 then

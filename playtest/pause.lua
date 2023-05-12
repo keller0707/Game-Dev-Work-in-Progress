@@ -1,5 +1,6 @@
 function init_pause()
 
+    -- create cursor object
     cursor = {
         x = 0,
         y = 0,
@@ -49,6 +50,7 @@ function pause_controls()
 end
 
 function draw_pause()
+    -- draw pause screen
     rectfill(camera_x+27,27,camera_x+100,97,1)
     rect(camera_x+27,27,camera_x+100,97,10)
     line(camera_x+27,40,camera_x+100,40)
@@ -56,8 +58,8 @@ function draw_pause()
     print("restart level",camera_x+39,50)
     print("go to debug",camera_x+42,66)
     print("go to bedroom",camera_x+39,82)
-    --rect(camera_x,0,camera_x+127,127)
 
+    -- draw red cursor
     spr(35,cursor.x,cursor.y)
 
 end
