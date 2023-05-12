@@ -36,14 +36,12 @@ function init_player(x_pos)
     landed = false,
     falling = false,
     --specify sound quality (0 is bad and 1 is good, 2 is fantastic)
-	  SoundQuality = sound_1 + sound_2, --Sound Quality 
+	  SoundQuality = 0, --Sound Quality 
     apple = false,
     banana = false
 
   }
-  if (p.SoundQuality == 0) music(00)
-  if (p.SoundQuality == 1) music(04)
-  if (p.SoundQuality == 2) music(04)
+
 end
 
 -- playtest controls
@@ -82,7 +80,6 @@ function player_playtest()
   and not p.jumping then
     p.running = false
     p.sliding = true
-    sfx(p.SoundQuality+4)
   end
 
   -- jump
@@ -90,7 +87,6 @@ function player_playtest()
   and p.landed then
     p.dy -= p.boost
     p.landed = false
-    sfx(p.SoundQuality)
   end
 
   -- check collision up and down
