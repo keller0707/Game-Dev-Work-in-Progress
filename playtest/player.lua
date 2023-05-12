@@ -1,6 +1,6 @@
 
 function init_player(x_pos)
-  -- player info
+  -- create player object
   p = {
     -- sprite number
     sp = 1,
@@ -47,10 +47,12 @@ end
 -- playtest controls
 function player_playtest()
 
+  -- has apple powerup
   if p.apple == true then
     good_apple()
   end
 
+  -- has banana powerup
   if p.banana == true then
     good_banana()
   end
@@ -95,6 +97,7 @@ function player_playtest()
     p.landed = false
     p.jumping = false
 
+    -- keep player speed from indefnintely increasing
     p.dy = limit_speed(p.dy,p.max_dy)
 
     if collide_map(p,"down",0) then
@@ -230,5 +233,6 @@ function limit_speed(num,maximum)
 end
 
 function player_draw()
+  -- draw player
   spr(1, p.x, p.y)
 end

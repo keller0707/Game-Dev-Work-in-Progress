@@ -2,7 +2,6 @@ pico-8 cartridge // http://www.pico-8.com
 version 41
 __lua__
 #include ../debug/menu.lua
-#include ../mechanics/collision.lua
 #include ../global_variables.lua
 __gfx__
 000000001111111111111111111111110001000000000000dddddddddddddddddddddddddddddddd111111111111111100000000000000000000000000000000

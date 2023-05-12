@@ -1,5 +1,6 @@
 function _init() 
 
+    -- list for code messages
     code_list = {}
 
     -- create code messages
@@ -14,6 +15,7 @@ function _init()
     init_code("for i = 1, #step_bro do")
     init_code("stuck = true")
 
+    -- list for binary strings on borders
     binary_list = {}
 
     -- create binary for left and right sides
@@ -28,6 +30,7 @@ function _init()
         init_binary(x*8,120,false)
     end
 
+    -- speed of code messages
     code_speed = 1
 
     -- play transition animation
@@ -36,12 +39,13 @@ function _init()
     transition_animation = 0
     transition_num = 1
 
-    -- 
+    -- varuabels for binary strings
     binary_animation = 0
     binary_flick = false
     binary_x = 9
     binary_y = 6
 
+    -- sprite for play button circle
     button_sprite = 128
 
 end
@@ -68,11 +72,13 @@ end
 
 function _draw()
 
+    -- clear screen
     cls()
 
     -- draw code moving across screen
     draw_code()
 
+    -- draw map
     map(0,0)
 
     -- add on red bits to title
@@ -89,6 +95,7 @@ function _draw()
     -- draw binary outside border
     draw_binary()
 
+    -- play binary animation for binary to right of play
     if not transition then
         binary_read()
     end
@@ -96,7 +103,7 @@ function _draw()
     -- draw border
     rect(8,8,120,120,3)
 
-    -- draw whit circle
+    -- draw white circle
     spr(button_sprite,2*8,7*8,2,2)
 
     -- draw transition

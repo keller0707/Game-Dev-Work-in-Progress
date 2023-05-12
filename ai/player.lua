@@ -1,4 +1,5 @@
 function simiple_player()
+    -- create player object
     p = {
         x = 120,
         y = 120,
@@ -17,9 +18,11 @@ end
 
 function simple_mvt()
 
+    -- temp vairbles for player's previous position
     local old_x = p.x
     local old_y = p.y
 
+    -- move left
     if (btn(0)) then
         p.x -= speed
         p.flip = true
@@ -29,6 +32,8 @@ function simple_mvt()
         end
 
     end
+
+    -- move right
     if (btn(1)) then
         p.x += speed
         p.flip = false
@@ -38,6 +43,8 @@ function simple_mvt()
         end
 
     end
+
+    -- move up
     if (btn(2)) then
         p.y -= speed
 
@@ -46,6 +53,8 @@ function simple_mvt()
         end
 
     end
+
+    -- move down
     if (btn(3)) then
         p.y += speed
 
@@ -55,6 +64,7 @@ function simple_mvt()
 
     end
 
+    -- check if player has moved
     if old_x == p.x and old_y == p.y then
         p.moving = false
     else
@@ -65,9 +75,10 @@ end
 
 function draw_player()
     
-
+    -- player is moving
     if p.moving then
 
+        -- animate player movement
         if time() - p.animation > 0.1 then
             p.animation = time()
             p.sprite += 1
@@ -82,6 +93,7 @@ function draw_player()
 
     end
 
+    -- draw player
     spr(p.sprite,p.x,p.y,1,1,p.flip)
 
 end

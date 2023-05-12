@@ -1,5 +1,6 @@
 function init_sheep(x_pos,y_pos)
 
+    -- create sheep object
     sheep = {
 
         start_x = x_pos,
@@ -27,6 +28,7 @@ function init_sheep(x_pos,y_pos)
 
     }
 
+    -- add sheep object ti list
     add(sheep_list,sheep)
 
 end
@@ -37,7 +39,7 @@ function draw_sheep()
 
         -- if game is not paused
         if not pause then
-             -- loop through sprites based
+            -- animate sheep
             if time() - sheep_list[i].animation > 0.1 then
                 sheep_list[i].animation = time()
                 sheep_list[i].sprite += 1
@@ -47,8 +49,9 @@ function draw_sheep()
             end
         end
 
+        -- draw sheep
         spr(sheep_list[i].sprite,sheep_list[i].x,sheep_list[i].y,1,1,sheep_list[i].flip)
-        --rect(sheep_list[i].x,sheep_list[i].y,sheep_list[i].x+7,sheep_list[i].y+8,8)
+
     end
 
 end
@@ -140,8 +143,6 @@ function move(number)
         if collide_map(sheep_list[number],"down",0) then
             sheep_list[number].dy = 0
             sheep_list[number].landed = true
-            -- prevent sheep from clipping into the ground too much
-            --sheep_list[number].y -= ((sheep_list[number].y+5)%8)-1
         end
 
     end
@@ -164,6 +165,7 @@ function move(number)
         sheep_list[number].x += 2
     end
 
+    -- sheep runs past edge of world
     if sheep_list[number].x > map_end then
         sheep_list[number].flip = false
         sheep_list[number].dx = 0

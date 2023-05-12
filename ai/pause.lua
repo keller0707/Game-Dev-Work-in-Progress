@@ -1,11 +1,13 @@
 function init_pause()
 
+    -- create pause object
     pause = {
         x = 0,
         y = 0,
         spr = 24
     }
 
+    -- variable to show if screen is paused
     pause_screen = false
 
 end
@@ -50,14 +52,15 @@ end
 
 function draw_pause()
 
+    -- draw pause screen
     rectfill(cam_x+27,cam_y+27,cam_x+100,cam_y+97,1)
     rect(cam_x+27,cam_y+27,cam_x+100,cam_y+97,10)
     line(cam_x+27,cam_y+40,cam_x+100,cam_y+40,10)
     print("game paused!",cam_x+41,cam_y+32,10)
     print("restart level",cam_x+40,cam_y+50,10)
     print("go to debug",cam_x+40,cam_y+66,10)
-    --rect(camera_x,0,camera_x+127,127)
 
+    -- draw circle in pause screen
     spr(24,pause.x,pause.y)
 
 end

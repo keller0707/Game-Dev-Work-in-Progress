@@ -1,5 +1,6 @@
 function init_border()
 
+    -- create border
     border = {
         top_axis = 0,
         right_axis = 0,
@@ -7,24 +8,24 @@ function init_border()
         bottom_axis = 0
     }
 
+    -- top screen zigzag
     top_string = {
         animation = 0
     }
 
+    -- bottom screen zigzag
     bottom_string = {
         animation = 0
     }
 
+    -- animation for zigzags
     border_animation = 0
-
-end
-
-function update_border()
 
 end
 
 function draw_border()
 
+    -- animate zigzags
     if time() - border_animation > 0.15 then
 
         border_animation = time()

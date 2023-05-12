@@ -1,5 +1,6 @@
 function init_binary(x_pos,y_pos,direction)
 
+    -- create object for border binaries
     binary = {
         x = x_pos,
         y = y_pos,
@@ -14,6 +15,7 @@ function init_binary(x_pos,y_pos,direction)
         binary.spr = 33
     end
 
+    -- add string of binary to list
     add(binary_list,binary)
 
 end
@@ -72,6 +74,7 @@ end
 
 function draw_binary() 
 
+    -- draw binary strings on side
     for i = 1, #binary_list do
 
         spr(binary_list[i].spr,binary_list[i].x,binary_list[i].y)
@@ -82,6 +85,7 @@ end
 
 function draw_transition()
 
+    -- play transistion
     if transition_num == 1 then
         for y = 6, 9 do
             for x = 9,12 do
@@ -92,6 +96,7 @@ function draw_transition()
         end
     end
 
+    -- animate transisiton
     if time() - transition_animation > 0.15 then
 
         transition_animation = time()
@@ -113,6 +118,7 @@ end
 
 function binary_read()
 
+    -- animate binary to right of play word
     if time() - binary_animation > 0.4 then
 
         binary_animation = time()

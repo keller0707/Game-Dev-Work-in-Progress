@@ -1,5 +1,6 @@
 function init_dancer()
 
+    -- create dancer object
     dancer = {
         x = 92,
         y = 45,
@@ -9,6 +10,7 @@ function init_dancer()
         flip = false
     }
 
+    -- create disco ball object
     disco = {
         x = 92,
         y = 13,
@@ -19,9 +21,6 @@ function init_dancer()
 end
 
 function draw_dancer()
-
-    -- draw pole behind dancer
-    --line(100,35,100,61,7)
 
     -- draw dancer
     spr(dancer.sprite,dancer.x,dancer.y,2,2,dancer.flip)

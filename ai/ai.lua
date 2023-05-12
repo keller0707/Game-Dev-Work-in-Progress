@@ -1,7 +1,9 @@
 function _init()
 
+    -- create player object
     simiple_player()
 
+    -- create pause variables
     init_pause()
 
     -- list for NPCs
@@ -21,20 +23,27 @@ function _init()
     init_wolf(180,165)
     init_wolf(50,147)
 
+    -- list hold number of sheep rescued
     objective = {}
 
+    -- debug variables
     xr1 = 0
     yr1 = 0
     xr2 = 0
     yr2 = 0
 
+    -- global variable for player, sheep, and AI variable
     speed = 3
 
+    -- varibales for camera
     cam_x = 0
     cam_y = 0
 
+    -- number of sheep killed
     dead_count = 0
+    -- end game score screen
     score_screen = false
+    -- variable for time
     recorded_time = 0
 
 end
@@ -59,12 +68,16 @@ function _update()
         cam_y = p.y - 60
     end
     
+    -- set camera
     camera(cam_x,cam_y)
 
+    -- game is paused
     if pause_screen then
         pause_controls()
+    -- game is unpaused
     else
 
+        -- pause screen
         if btnp(4) and not score_screen then
             pause_screen = true
             pause.x = cam_x+30
@@ -80,6 +93,9 @@ function _update()
             -- check if player is in range
             if (in_range(p,sheep_list[i],8)) then
                 sheep_list[i].active = true
+                if (stat(47) == -1) then
+                    sfx(00, 1)
+                end
             end
             -- sheep set to follow player
             if (sheep_list[i].active == true and not sheep_list[i].safe and sheep_list[i].alive) then
@@ -129,6 +145,7 @@ function _update()
 
                 -- jump player to score screen
                 if not score_screen then
+                    sfx(3,3)
                     p.y = 97
                     p.x = 315
                     score_screen = true
@@ -162,15 +179,18 @@ function _update()
                 -- wolf is hunting sheep
                 if (in_range(sheep_list[l],wolf_list[i],40)) and not sheep_list[l].safe  and sheep_list[l].alive then
                     follow(sheep_list[l],wolf_list[i],1,2)
+                    if (stat(46) == -1) then 
+                        sfx(1)
+                    end
                 end
 
                 -- wolf has caught sheep
                 if (in_range(sheep_list[l],wolf_list[i],4)) and not sheep_list[l].safe and sheep_list[l].alive then
-                    --death_animiation(l)
                     sheep_list[l].sprite = 34
                     sheep_list[l].alive = false
                     add(objective,true)
                     dead_count += 1
+                    sfx(2)
                 end
 
             end
@@ -183,23 +203,30 @@ end
 
 function _draw()
 
+    -- clear screen
     cls()
 
+    -- draw map
     map(0,0)
 
+    -- draw player
     draw_player()
     
+    -- draw sheep
     draw_sheep()
 
+    -- draw wolves
     draw_wolves()
 
+    -- draw pause screen if screen is paused
     if pause_screen then
         draw_pause()
     end
 
-    -- game is live
+    -- game is running
     if not score_screen then
 
+        -- set variables to top left corner
         local print_x = p.x - 60
         local print_y = p.y - 60
 
@@ -222,6 +249,7 @@ function _draw()
         
     end
 
+    -- draw score screen
     if score_screen then
 
         -- display info for score screen
@@ -233,20 +261,5 @@ function _draw()
         print("exit",349,97,7)
 
     end
-
-    -- THIS IS ALL HITBOX DRAWING FOR DEBUG STUFF
-    -- player circle
-    --circ(p.x+4,p.y+4,64,8)
-
-    -- see wolf hunting range
-    --for i = 1, #wolf_list do
-        --rect(wolf_list[i].x - 28, wolf_list[i].y - 28, wolf_list[i].x + 36, wolf_list[i].y + 36,8)
-        --circ(wolf_list[i].x + 4, wolf_list[i].y + 4, 32,12)
-    --end
-
-    -- see sheeps pickup hitbox
-    --for i = 1, #sheep_list do
-        --rect(sheep_list[i].x - 4, sheep_list[i].y - 4, sheep_list[i].x + 12, sheep_list[i].y + 12,12)
-    --end
 
 end

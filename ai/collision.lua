@@ -38,11 +38,6 @@ function collide_map(obj,aim,flag)
       y2=y+h - 1
     end
 
-    --xr1 = x1
-    --yr1 = y1
-    --xr2 = x2
-    --yr2 = y2
-   
     --pixels to tiles
     x1/=8    
     y1/=8
@@ -69,11 +64,7 @@ function in_range(obj1,obj2,range)
   local x2 = obj2.x + 4
   local y2 = obj2.y + 4
 
-  --xr1 = x2 - range
-  --yr1 = x2 + range
-  --xr2 = y2 - range
-  --yr2 = y2 + range
-
+  -- object is in range
   if (x1 >= x2 - range) and (x1 <= x2 + range)
   and (y1 >= y2 - range) and (y1 <= y2 + range) then
       return true
