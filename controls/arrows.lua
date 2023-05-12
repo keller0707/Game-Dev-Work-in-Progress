@@ -37,6 +37,7 @@ function init_arrows()
 
     arrow_num = 1
     arrow_spawn = 1
+    arrow_sound = 0
 
 end
 
@@ -119,7 +120,17 @@ end
 
 -- arrow was pressed on time
 function arrow_hit(i)
-    
+
+    if (arrow_sound > 2) then
+        arrow_sound = 0
+    end
+    if (stat(48) == -1) then
+        sfx(13+arrow_sound, 2)
+    else
+        sfx(13+arrow_sound, 3)
+    end
+
+    arrow_sound += 1
     arrows[i].active = false
     overall_score += 10 * (1 + combo)
     accuracy.total += 1

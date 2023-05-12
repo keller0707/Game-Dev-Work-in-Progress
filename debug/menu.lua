@@ -245,6 +245,10 @@ function _update()
     if btn(3) then
         cursor.y += cursor.speed
     end
+    -- click sound
+    if btnp(5) then
+        sfx(00)
+    end
     checkhover()
 end
 
